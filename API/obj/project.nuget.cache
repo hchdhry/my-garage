@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "lQ3EOv5mBeTq4xeHEk2c4DGrb5bbXZ6EkhNKW1+yOoeW+PVSZ1aTx6Rl8v3DTXEn8AlMjFCRe9hj+seqhPyxuQ==",
+  "dgSpecHash": "kh8rJUdd0SrxCosguDm0wxMdAwRNmg8vXvs4wOEcPyIeRR6ZxY6vGWB29HHIjlB6iDG7jORnr/zR05MhxjudiQ==",
   "success": true,
   "projectFilePath": "/Users/hassan/dotnet/my-garage/API/API.csproj",
   "expectedPackageFiles": [
@@ -36,6 +36,7 @@
     "/Users/hassan/.nuget/packages/microsoft.extensions.primitives/8.0.0/microsoft.extensions.primitives.8.0.0.nupkg.sha512",
     "/Users/hassan/.nuget/packages/microsoft.openapi/1.4.3/microsoft.openapi.1.4.3.nupkg.sha512",
     "/Users/hassan/.nuget/packages/mono.texttemplating/2.2.1/mono.texttemplating.2.2.1.nupkg.sha512",
+    "/Users/hassan/.nuget/packages/newtonsoft.json/13.0.3/newtonsoft.json.13.0.3.nupkg.sha512",
     "/Users/hassan/.nuget/packages/npgsql/8.0.2/npgsql.8.0.2.nupkg.sha512",
     "/Users/hassan/.nuget/packages/npgsql.entityframeworkcore.postgresql/8.0.2/npgsql.entityframeworkcore.postgresql.8.0.2.nupkg.sha512",
     "/Users/hassan/.nuget/packages/swashbuckle.aspnetcore/6.4.0/swashbuckle.aspnetcore.6.4.0.nupkg.sha512",

@@ -25,6 +25,7 @@
 /Users/hassan/dotnet/my-garage/API/bin/Debug/net8.0/Microsoft.Extensions.Options.dll
 /Users/hassan/dotnet/my-garage/API/bin/Debug/net8.0/Microsoft.OpenApi.dll
 /Users/hassan/dotnet/my-garage/API/bin/Debug/net8.0/Mono.TextTemplating.dll
+/Users/hassan/dotnet/my-garage/API/bin/Debug/net8.0/Newtonsoft.Json.dll
 /Users/hassan/dotnet/my-garage/API/bin/Debug/net8.0/Npgsql.dll
 /Users/hassan/dotnet/my-garage/API/bin/Debug/net8.0/Npgsql.EntityFrameworkCore.PostgreSQL.dll
 /Users/hassan/dotnet/my-garage/API/bin/Debug/net8.0/Swashbuckle.AspNetCore.Swagger.dll
