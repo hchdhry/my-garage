@@ -2,6 +2,7 @@
 using API.Models;
 using API.Services;
 using Microsoft.AspNetCore.Http.HttpResults;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Internal;
 
 namespace API;
@@ -17,6 +18,11 @@ public class CarRepository:ICarRepository
         _ANCService = aNCService;
     }
 
+    public Task<bool> CarExistAsync(string Model)
+    {
+        return  _dbcontext.Car.AnyAsync(c =>c.Model.ToLower() == Model.ToLower());
+    }
+
     public async Task<Car> CreateCar(string model)
     {
         var car = await _ANCService.GetCarByModel(model);
@@ -24,6 +30,13 @@ public class CarRepository:ICarRepository
         {
             return null;
         }
+        if (await CarExistAsync(model))
+        {
+            return null;
+        }
+        await _dbcontext.AddAsync(car);
+        await _dbcontext.SaveChangesAsync();
+
         return car;
         
     }

@@ -19,7 +19,7 @@ namespace API.Controllers
         {
             var car = await _carRepo.CreateCar(model);
             if (car == null)
-                return BadRequest("Not found");
+                {return BadRequest("car does not exist");}
 
             return Ok(car);
         }
