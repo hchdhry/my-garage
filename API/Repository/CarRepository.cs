@@ -1,4 +1,5 @@
 ﻿using API.Data;
+using API.DTO;
 using API.Models;
 using API.Services;
 using Microsoft.AspNetCore.Http.HttpResults;
@@ -51,5 +52,32 @@ public class CarRepository:ICarRepository
        _dbcontext.Car.Remove(car);
        await _dbcontext.SaveChangesAsync();
        return car;
+    }
+
+    public async Task<Car> UpdateCar(int id, UpdateCarDto car)
+    {
+   
+        var carToUpdate = await _dbcontext.Car.FirstOrDefaultAsync(c => c.Id == id);
+       if(carToUpdate == null)
+       {
+        return null;
+        }
+
+        carToUpdate.Year = car.Year;
+        carToUpdate.Model = car.Model;
+        carToUpdate.Make = car.Make;
+        carToUpdate.MaxCityMpg = car.MaxCityMpg;
+        carToUpdate.MinCityMpg = car.MinCityMpg;
+        carToUpdate.Cylinders = car.Cylinders;
+        carToUpdate.Drive = car.Drive;
+        carToUpdate.MinHwyMpg = car.MinHwyMpg;
+        carToUpdate.MaxHwyMpg = car.MaxHwyMpg;
+        carToUpdate.MinCombMpg = car.MinCombMpg;
+        carToUpdate.MaxCombMpg = car.MaxCombMpg;
+        carToUpdate.FuelType = car.FuelType;
+        carToUpdate.Transmission = car.Transmission;
+        carToUpdate.Limit = car.Limit;
+        await _dbcontext.SaveChangesAsync();
+        return carToUpdate;
     }
 }

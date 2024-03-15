@@ -1,4 +1,5 @@
-﻿using API.Models;
+﻿using API.DTO;
+using API.Models;
 using Microsoft.AspNetCore.Mvc;
 
 namespace API.Controllers
@@ -37,6 +38,19 @@ namespace API.Controllers
                 return BadRequest("car not found");
             }
             return NoContent();
+
+        }
+        [HttpPut]
+        [Route("{id:int}")]
+
+        public async Task<IActionResult> Update([FromRoute]int id,[FromBody]UpdateCarDto car)
+        {
+          var carToUpdate =  await _carRepo.UpdateCar(id,car);
+          if (carToUpdate == null)
+          {
+              return BadRequest("car not found");
+          }
+            return Ok(carToUpdate);
 
         }
     }
