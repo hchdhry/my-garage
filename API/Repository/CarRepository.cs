@@ -40,4 +40,16 @@ public class CarRepository:ICarRepository
         return car;
         
     }
+
+    public async Task<Car> DeleteCar(int id)
+    {
+        var car = await  _dbcontext.Car.FirstOrDefaultAsync(u => u.Id == id);
+        if (car == null)
+        {
+            return null;
+        }
+       _dbcontext.Car.Remove(car);
+       await _dbcontext.SaveChangesAsync();
+       return car;
+    }
 }
