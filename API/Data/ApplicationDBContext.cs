@@ -4,7 +4,7 @@ using API.Models;
 
 namespace API.Data{
 
-public class ApplicationDBContext:IdentityDbContext
+public class ApplicationDBContext:IdentityDbContext<User>
 {
     public ApplicationDBContext(DbContextOptions dbContextOptions):base(dbContextOptions)
     {
@@ -12,5 +12,6 @@ public class ApplicationDBContext:IdentityDbContext
     }
 
 public DbSet<Car> Car {get ; set ;}
+public DbSet<Comment> Comment {get ; set ;}
 }
 }
