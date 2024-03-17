@@ -1,6 +1,7 @@
 ﻿using API.Data;
 using API.DTO;
 using API.Models;
+using API.Interface;
 using API.Services;
 using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.EntityFrameworkCore;

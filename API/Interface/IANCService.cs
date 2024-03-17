@@ -1,9 +1,10 @@
 ﻿using API.Models;
 
-namespace API;
+namespace API.Interface{
 
 public interface IANCService
 {
     Task <Car> GetCarByModel(string model);
 
+}
 }
