@@ -3,6 +3,7 @@ using API.Data;
 using API.Services;
 using API.Interface;
 using Microsoft.EntityFrameworkCore;
+using API.Repository;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -16,6 +17,8 @@ builder.Services.AddDbContext<ApplicationDBContext>(options =>{
     options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection"));
 });
 builder.Services.AddScoped<ICarRepository,CarRepository>();
+builder.Services.AddScoped<ICommentRepository,CommentRepository>();
+builder.Services.AddScoped<ITokenService,TokenService>();
 builder.Services.AddScoped<IANCService, ANCService>()
                 .AddHttpClient();
 

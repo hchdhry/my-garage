@@ -7,7 +7,7 @@ using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Internal;
 
-namespace API;
+namespace API.Repository;
 
 public class CarRepository:ICarRepository
 {

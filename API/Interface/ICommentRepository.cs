@@ -3,7 +3,7 @@ namespace API.Interface{
 
 public interface ICommentRepository
 {
-    Task<Comment> CreateComment(string Text, string Title);
+    Task<Comment> CreateComment(Comment comment);
 
 }
 }
