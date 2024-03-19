@@ -22,6 +22,16 @@ public class CommentController: ControllerBase
         var newComment = await _commentRepository.CreateComment(commentModel);
         return Ok(newComment);
     }
+    [HttpDelete("{id:int}")]
+    public async Task<IActionResult> DeleteComment([FromRoute]int id)
+    {
+        var DeleteComment = _commentRepository.DeleteComment(id);
+        if(DeleteComment == null)
+        {
+            return BadRequest("error");
+        }
+        return NoContent();
+    }
 
 
 }

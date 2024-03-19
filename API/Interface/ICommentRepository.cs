@@ -5,5 +5,7 @@ public interface ICommentRepository
 {
     Task<Comment> CreateComment(Comment comment);
 
+    Task<Comment> DeleteComment(int id);
+
 }
 }
