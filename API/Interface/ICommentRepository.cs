@@ -7,5 +7,7 @@ public interface ICommentRepository
 
     Task<Comment> DeleteComment(int id);
 
+    Task<Comment> UpdateComment(int card,Comment comment);
+
 }
 }
