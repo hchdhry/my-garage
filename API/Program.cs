@@ -4,6 +4,8 @@ using API.Services;
 using API.Interface;
 using Microsoft.EntityFrameworkCore;
 using API.Repository;
+using API.Models;
+using Microsoft.AspNetCore.Identity;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -16,6 +18,12 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddDbContext<ApplicationDBContext>(options =>{
     options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection"));
 });
+builder.Services.AddIdentity<User, IdentityRole>(Options =>
+{
+    Options.Password.RequireLowercase = true;
+    Options.Password.RequireDigit = true;
+    Options.Password.RequireNonAlphanumeric = true;
+}).AddEntityFrameworkStores<ApplicationDBContext>();
 builder.Services.AddScoped<ICarRepository,CarRepository>();
 builder.Services.AddScoped<ICommentRepository,CommentRepository>();
 builder.Services.AddScoped<ITokenService,TokenService>();
