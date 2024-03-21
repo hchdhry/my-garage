@@ -1,4 +1,5 @@
-﻿using API.Models;
+﻿using API.DTO;
+using API.Models;
 namespace API.Interface{
 
 public interface ICommentRepository
@@ -7,7 +8,7 @@ public interface ICommentRepository
 
     Task<Comment> DeleteComment(int id);
 
-    Task<Comment> UpdateComment(int card,Comment comment);
+    Task<Comment> UpdateComment(int CommentId,UpdateCommentDTO comment);
 
 }
 }

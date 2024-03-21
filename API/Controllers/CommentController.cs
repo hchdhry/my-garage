@@ -33,5 +33,13 @@ public class CommentController: ControllerBase
         return NoContent();
     }
 
+    [HttpPut("{CommentId:int}")]
+    public async Task<IActionResult> UpdateComment([FromRoute]int CommentId,[FromBody]UpdateCommentDTO commentDTO)
+    {
+        var UpdateComment = await _commentRepository.UpdateComment(CommentId,commentDTO);
+        if(UpdateComment == null) return BadRequest("comment not found");
+        return Ok(UpdateComment);
+    }
+
 
 }
