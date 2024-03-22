@@ -2,6 +2,7 @@
 using API.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace API.Controllers{
 
@@ -44,6 +45,16 @@ public async Task<IActionResult> Register(RegisterDto registerDto)
          return StatusCode(500, e);
     }
          
+
+}
+[HttpPost("login")]
+public async Task<IActionResult> Login (LoginDto login)
+{
+    if(!ModelState.IsValid)
+    {
+        return BadRequest();
+    }
+    var user = await  _userManager.Users.FirstOrDefaultAsync(u => u.UserName == login.UserName);
 
 }
 
