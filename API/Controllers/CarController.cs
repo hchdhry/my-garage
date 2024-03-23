@@ -1,5 +1,6 @@
 ﻿using API.DTO;
 using API.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace API.Controllers
@@ -16,6 +17,8 @@ namespace API.Controllers
         }
 
         [HttpGet]
+        [Authorize]
+        
         public async Task<IActionResult> CreateCar([FromQuery] string model)
         {
             var car = await _carRepo.CreateCar(model);

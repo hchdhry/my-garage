@@ -10,16 +10,20 @@ namespace API.Controllers{
 [Route("api/Account")]
 public class AccountController:ControllerBase
 {
-    UserManager<User> _userManager;
+    private readonly UserManager<User> _userManager;
+    private readonly ITokenService _TokenService;
+    private readonly SignInManager<User> _SignInManager;
 
-public AccountController(UserManager<User> userManager)
+public AccountController(UserManager<User> userManager,ITokenService tokenService,SignInManager<User> signInManager)
 {
     _userManager = userManager;
+    _TokenService = tokenService;
+    _SignInManager = signInManager;
     
 }
 [HttpPost("register")]
 public async Task<IActionResult> Register(RegisterDto registerDto)
-{
+{ 
     try
     {
         if(!ModelState.IsValid)
@@ -48,15 +52,32 @@ public async Task<IActionResult> Register(RegisterDto registerDto)
 
 }
 [HttpPost("login")]
-public async Task<IActionResult> Login (LoginDto login)
-{
-    if(!ModelState.IsValid)
-    {
-        return BadRequest();
+        public async Task<IActionResult> LogIn(LoginDto loginDto)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest();
+            }
+            var user = await _userManager.Users.FirstOrDefaultAsync(u => u.UserName == loginDto.UserName);
+            if (user == null)
+            {
+                return Unauthorized("invalid username");
+            }
+            var result = await _SignInManager.CheckPasswordSignInAsync(user, loginDto.Password, false);
+
+            if (!result.Succeeded)
+            {
+                return NotFound("incorrect credentials");
+            }
+            return Ok(new NewUserDto
+            {
+                UserName = user.UserName,
+                Email = user.Email,
+                token = _TokenService.CreateToken(user)
+            });
+
+
+        }
+
     }
-    var user = await  _userManager.Users.FirstOrDefaultAsync(u => u.UserName == login.UserName);
-
-}
-
-}
 }
