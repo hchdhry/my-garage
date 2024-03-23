@@ -20,19 +20,35 @@ public class CarRepository:ICarRepository
         _ANCService = aNCService;
     }
 
-    public Task<bool> CarExistAsync(string Model)
+    public async Task<bool> CarExistAsync(Car car)
     {
-        return  _dbcontext.Car.AnyAsync(c =>c.Model.ToLower() == Model.ToLower());
+        return await _dbcontext.Car.AnyAsync(c =>
+            c.Model.ToLower() == car.Model.ToLower() &&
+            c.Make.ToLower() == car.Make.ToLower() &&
+            c.Year == car.Year &&
+            c.MaxCityMpg == car.MaxCityMpg &&
+            c.MinCityMpg == car.MinCityMpg &&
+            c.Cylinders == car.Cylinders &&
+            c.Drive.ToLower() == car.Drive.ToLower() &&
+            c.MinHwyMpg == car.MinHwyMpg &&
+            c.MaxHwyMpg == car.MaxHwyMpg &&
+            c.MinCombMpg == car.MinCombMpg &&
+            c.MaxCombMpg == car.MaxCombMpg &&
+            c.FuelType.ToLower() == car.FuelType.ToLower() &&
+            c.Transmission.ToLower() == car.Transmission.ToLower() &&
+            c.Limit == car.Limit
+        );
     }
 
     public async Task<Car> CreateCar(string model)
     {
+       
         var car = await _ANCService.GetCarByModel(model);
         if (car == null)
         {
             return null;
         }
-        if (await CarExistAsync(model))
+        if (await CarExistAsync(car))
         {
             return null;
         }

@@ -16,14 +16,14 @@ namespace API.Controllers
             _carRepo = carRepository;
         }
 
-        [HttpGet]
+        [HttpPost]
         [Authorize]
         
-        public async Task<IActionResult> CreateCar([FromQuery] string model)
+        public async Task<IActionResult> CreateCar([FromBody] string model)
         {
             var car = await _carRepo.CreateCar(model);
             if (car == null)
-                {return BadRequest("car does not exist");}
+                {return BadRequest("something went wrong");}
 
             return Ok(car);
         }
