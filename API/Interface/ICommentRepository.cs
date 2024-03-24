@@ -10,5 +10,7 @@ public interface ICommentRepository
 
     Task<Comment> UpdateComment(int CommentId,UpdateCommentDTO comment);
 
+    Task<Comment> GetByID(int id);
+
 }
 }
