@@ -33,6 +33,12 @@ public class CommentRepository : ICommentRepository
        return CommentToDelete;
     }
 
+    public async Task<Comment> GetByID(int id)
+    {   
+        return await _dbcontext.Comment.Include(a => a.User).FirstOrDefaultAsync(c=>c.Id == id);
+       
+    }
+
     public async Task<Comment> UpdateComment(int CommentId, UpdateCommentDTO comment)
     {
         var CommentToUpdate = await _dbcontext.Comment.FirstOrDefaultAsync(c=>c.Id == CommentId);
