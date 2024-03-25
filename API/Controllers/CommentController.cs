@@ -3,6 +3,7 @@ using API.Extensions;
 using API.Interface;
 using API.Mappers;
 using API.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -14,16 +15,27 @@ public class CommentController: ControllerBase
 {
     private readonly ICommentRepository _commentRepository;
     private readonly UserManager<User> _userManager;
-    public CommentController(ICommentRepository commentRepository)
+    public CommentController(ICommentRepository commentRepository,UserManager<User> userManager)
     {
         _commentRepository = commentRepository;
+        _userManager = userManager;
     }
+    [Authorize]
     [HttpPost("{CarId:int}")]
     public async Task<IActionResult> CreateComment(int CarId, [FromBody] CreateCommentDto comment)
-    {   
+    {
+
+        if (!ModelState.IsValid)
+            return BadRequest(ModelState);
+
         var username = User.getUserName();
-        var appUser = _us
+        var appUser = await _userManager.FindByNameAsync(username);
+
         var commentModel = comment.ToCommentFromCreate(CarId);
+        commentModel.User = appUser;
+        if (appUser == null)
+            return BadRequest("User not found");
+
         var newComment = await _commentRepository.CreateComment(commentModel);
         return Ok(newComment);
     }

@@ -19,5 +19,6 @@ public class Car
     public double? MinCombMpg { get; set; } // Minimum combination (city and highway) fuel consumption (in miles per gallon)
     public double? MaxCombMpg { get; set; } // Maximum combination (city and highway) fuel consumption (in miles per gallon)
     public int? Limit { get; set; } // How many results to return. Must be between 1 and 50. Default is 5
+    public List<Garage> Garage {get;set;}= new List<Garage>();
 }
 }
