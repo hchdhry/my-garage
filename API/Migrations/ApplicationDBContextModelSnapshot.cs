@@ -79,7 +79,7 @@ namespace API.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Car");
+                    b.ToTable("Cars");
                 });
 
             modelBuilder.Entity("API.Models.Comment", b =>
@@ -113,7 +113,22 @@ namespace API.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("Comment");
+                    b.ToTable("Comments");
+                });
+
+            modelBuilder.Entity("API.Models.Garage", b =>
+                {
+                    b.Property<int>("CarId")
+                        .HasColumnType("integer");
+
+                    b.Property<string>("UserId")
+                        .HasColumnType("text");
+
+                    b.HasKey("CarId", "UserId");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("Garage");
                 });
 
             modelBuilder.Entity("API.Models.User", b =>
@@ -208,13 +223,13 @@ namespace API.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "7ea0e930-1c12-4b49-a362-03bdc554eb12",
+                            Id = "ae4e775b-546c-40a2-83fd-bbe0f162379b",
                             Name = "Admin",
                             NormalizedName = "ADMIN"
                         },
                         new
                         {
-                            Id = "ac972586-a4fd-4da8-845b-4e4c6c9ecc9c",
+                            Id = "62e6d4e5-d70b-4623-a43f-352e46c3dc34",
                             Name = "User",
                             NormalizedName = "USER"
                         });
@@ -343,6 +358,25 @@ namespace API.Migrations
                     b.Navigation("User");
                 });
 
+            modelBuilder.Entity("API.Models.Garage", b =>
+                {
+                    b.HasOne("API.Models.Car", "Car")
+                        .WithMany("Garage")
+                        .HasForeignKey("CarId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("API.Models.User", "User")
+                        .WithMany("Garage")
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Car");
+
+                    b.Navigation("User");
+                });
+
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
                 {
                     b.HasOne("Microsoft.AspNetCore.Identity.IdentityRole", null)
@@ -392,6 +426,16 @@ namespace API.Migrations
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+                });
+
+            modelBuilder.Entity("API.Models.Car", b =>
+                {
+                    b.Navigation("Garage");
+                });
+
+            modelBuilder.Entity("API.Models.User", b =>
+                {
+                    b.Navigation("Garage");
                 });
 #pragma warning restore 612, 618
         }
