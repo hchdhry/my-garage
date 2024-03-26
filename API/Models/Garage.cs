@@ -5,7 +5,7 @@ namespace API.Models;
 [Table("Garage")]
 public class Garage
 {
-    public string UserId {get;set;}
+    public string UserId {get;set;} = string.Empty;
     public int CarId {get;set;}
     public Car Car {get;set;}
     public User User {get;set;}

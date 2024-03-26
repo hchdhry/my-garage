@@ -71,6 +71,12 @@ public class CarRepository:ICarRepository
        return car;
     }
 
+    public async Task<Car> GetCar(int id)
+    {
+        return await _dbcontext.Car.FirstOrDefaultAsync(u => u.Id == id);
+        
+    }
+
     public async Task<Car> UpdateCar(int id, UpdateCarDto car)
     {
    

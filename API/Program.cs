@@ -59,6 +59,7 @@ builder.Services.AddControllers().AddNewtonsoftJson(opt =>
 opt.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore
 );
 builder.Services.AddScoped<ICarRepository,CarRepository>();
+builder.Services.AddScoped<IGarageRepository, GarageRepository>();
 builder.Services.AddScoped<ICommentRepository,CommentRepository>();
 builder.Services.AddScoped<ITokenService,TokenService>();
 builder.Services.AddScoped<IANCService, ANCService>()
