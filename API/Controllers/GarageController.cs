@@ -47,5 +47,20 @@ namespace API.Controllers
 
             return Ok(newGarage); 
         }
+
+        [HttpGet]
+        [Authorize]
+        public async Task<IActionResult> getUserGarage()
+        {   
+            var username = User.getUserName();
+            var appUser = await _userManager.FindByNameAsync(username);
+
+            var userGarage = await _garageRepository.GetAllGarage(appUser);
+
+            if (userGarage == null)return NotFound();
+
+            return Ok(userGarage);
+
+        }
     }
 }
