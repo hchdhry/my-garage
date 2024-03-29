@@ -1,4 +1,5 @@
 ﻿using API.Data;
+using API.DTO;
 using API.Interface;
 using API.Models;
 using Microsoft.EntityFrameworkCore;
@@ -7,7 +8,7 @@ namespace API.Repository;
 
 public class GarageRepository : IGarageRepository
 {
-    ApplicationDBContext _dbcontext;
+    private readonly ApplicationDBContext _dbcontext;
     public GarageRepository(ApplicationDBContext DBContext)
     {
         _dbcontext = DBContext;
@@ -19,9 +20,20 @@ public class GarageRepository : IGarageRepository
         return garage;
     }
 
-    public async Task<List<Garage>> GetAllGarage(User user)
+
+
+    public async Task<List<GarageDTO>> GetAllGarage(User user)
     {
-        var ListOfGarages = await _dbcontext.Garage.Where(u => u.UserId == user.Id).ToListAsync();
+        var ListOfGarages = await _dbcontext.Garage.Where(u => u.UserId == user.Id).Select(Car => new GarageDTO{
+          username = Car.UserId,
+          Make = Car.Car.Make,
+          Model = Car.Car.Model,
+          Year = Car.Car.Year
+            
+
+        }).ToListAsync();
         return ListOfGarages;
     }
+
+   
 }

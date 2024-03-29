@@ -24,7 +24,7 @@ namespace API.Controllers
         }
         [Authorize]
         [HttpPost]
-        public async Task<IActionResult> CreateGarage(int carId)
+        public async Task<IActionResult> CreateGarage([FromBody]int carId)
         {
             var username = HttpContext.User.getUserName();
             var appUser = await _userManager.FindByNameAsync(username);
@@ -35,6 +35,7 @@ namespace API.Controllers
             var car = _carRepository.GetCar(carId);
             if (car == null)
                 return NotFound("Car not found");
+         
 
             var newGarage = new Garage
             {
@@ -42,9 +43,7 @@ namespace API.Controllers
                 UserId = appUser.Id
             };
             await _garageRepository.CreateGarage(newGarage);
-
-            
-
+          
             return Ok(newGarage); 
         }
 

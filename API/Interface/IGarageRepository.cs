@@ -1,11 +1,12 @@
-﻿using API.Models;
+﻿using API.DTO;
+using API.Models;
 
 
 namespace API.Interface;
 
 public interface IGarageRepository
 {
-    Task<List<Garage>> GetAllGarage(User user);
+    Task<List<GarageDTO>> GetAllGarage(User user);
     Task<Garage> CreateGarage(Garage garage);
 
    
