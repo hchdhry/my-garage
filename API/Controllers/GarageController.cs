@@ -32,7 +32,7 @@ namespace API.Controllers
             if (appUser == null)
                 return NotFound("User not found");
 
-            var car = _carRepository.GetCar(carId);
+            var car = await _carRepository.GetCar(carId);
             if (car == null)
                 return NotFound("Car not found");
          
@@ -43,7 +43,8 @@ namespace API.Controllers
                 UserId = appUser.Id
             };
             await _garageRepository.CreateGarage(newGarage);
-          
+           
+
             return Ok(newGarage); 
         }
 
