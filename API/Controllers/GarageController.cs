@@ -62,5 +62,26 @@ namespace API.Controllers
             return Ok(userGarage);
 
         }
+
+        [HttpDelete("{id:int}")]
+        [Authorize]
+        public async Task<IActionResult> DeleteGarage([FromRoute]int id)
+        {
+            var username = User.getUserName();
+            var appUser =await  _userManager.FindByNameAsync(username);
+            
+
+            Garage DeleteModel = new Garage
+            {
+                UserId = appUser.Id,
+                CarId = id
+
+            };
+           var DeletedGarage = await _garageRepository.DeleteGarge(DeleteModel);
+           if(DeletedGarage == null) return null;
+
+            return NoContent();
+
+        }
     }
 }

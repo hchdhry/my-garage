@@ -20,7 +20,12 @@ public class GarageRepository : IGarageRepository
         return garage;
     }
 
-
+    public async Task<Garage> DeleteGarge(Garage garage)
+    {
+      _dbcontext.Remove(garage);
+      await _dbcontext.SaveChangesAsync();
+      return garage;
+    }
 
     public async Task<List<GarageDTO>> GetAllGarage(User user)
     {
