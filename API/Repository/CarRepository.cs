@@ -71,12 +71,18 @@ public class CarRepository:ICarRepository
        return car;
     }
 
-    public Task<Car> GetAllCar(QueryObject query)
-    {
-       var car = _dbcontext.Car.AsQueryable()
+ public async Task<List<Car>> GetAllCar(QueryObject query)
+{
+    var cars = _dbcontext.Car.AsQueryable();
 
-       if
+    if (!string.IsNullOrWhiteSpace(query.MakeQuery))
+    {
+        cars = cars.Where(c => c.Make == query.MakeQuery);
     }
+
+    return await cars.ToListAsync();
+}
+
 
     public async Task<Car> GetCar(int id)
     {
@@ -110,4 +116,6 @@ public class CarRepository:ICarRepository
         await _dbcontext.SaveChangesAsync();
         return carToUpdate;
     }
+
+    
 }
