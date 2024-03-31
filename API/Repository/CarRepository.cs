@@ -71,6 +71,13 @@ public class CarRepository:ICarRepository
        return car;
     }
 
+    public Task<Car> GetAllCar(QueryObject query)
+    {
+       var car = _dbcontext.Car.AsQueryable()
+
+       if
+    }
+
     public async Task<Car> GetCar(int id)
     {
         return await _dbcontext.Car.FirstOrDefaultAsync(u => u.Id == id);

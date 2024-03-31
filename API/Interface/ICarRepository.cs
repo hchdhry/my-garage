@@ -5,7 +5,9 @@ namespace API;
 
 public interface ICarRepository
 {
+    Task<Car> GetAllCar();
     Task<Car> GetCar(int id);
+    
     Task<Car> CreateCar(string model);
 
     Task<Car> DeleteCar(int id);
