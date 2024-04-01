@@ -79,6 +79,14 @@ public class CarRepository:ICarRepository
     {
         cars = cars.Where(c => c.Make == query.MakeQuery);
     }
+    if(query.AscendingByYear)
+    {
+        cars = cars.OrderBy(c => c.Year);
+    }
+    else
+    {
+        cars = cars.OrderByDescending(c => c.Year);
+    }
 
     return await cars.ToListAsync();
 }
