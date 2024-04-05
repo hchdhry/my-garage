@@ -15,8 +15,8 @@ const HomePage = () => {
             </header>
             <main>
                 <section>
-                    <h1>Welcome to My Website</h1>
-                    <p>This is the homepage of our awesome website.</p>
+                    <h1>My garage</h1>
+                    <p>the online car talk community</p>
                 </section>
                 <section>
                     <h2>Featured Services</h2>
