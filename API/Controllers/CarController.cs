@@ -33,11 +33,17 @@ namespace API.Controllers
         public async Task<IActionResult> GetAllCars([FromQuery]QueryObject query)
         {
             var cars = await _carRepo.GetAllCar(query);
+            var listOfCars = cars.Select(car => new CarDTO
+            {   
+                Model = car.Model,
+                Make = car.Make,
+                Year = car.Year
+            }).ToList();
             if (cars == null)
             {
                 return BadRequest("no cars found");
             }
-            return Ok(cars);
+            return Ok(listOfCars);
         }
 
 
