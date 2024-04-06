@@ -88,6 +88,17 @@ builder.Services.AddAuthentication(options =>
         )
     };
 });
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("AllowReact",
+        builder =>
+        {
+            builder
+            .WithOrigins("http://127.0.0.1:3000") 
+            .AllowAnyHeader()
+            .AllowAnyMethod();
+        });
+});
 
 var app = builder.Build();
 
@@ -97,7 +108,7 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
-
+app.UseCors("AllowReact"); 
 app.UseHttpsRedirection();
 
 app.UseAuthentication();
