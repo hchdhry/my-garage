@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import CarCard from './CarCard';
 
 const Hero = () => {
     const [data, setData] = useState([]);
@@ -24,15 +25,7 @@ const Hero = () => {
                 <p>the online car talk community</p>
             </section>
             <section>
-                <div>
-                    {data.map((car, index) => (
-                        <div key={index}>
-                            <h2>{car.make}</h2>
-                            <p>{car.model}</p>
-                            <p>{car.year}</p>
-                        </div>
-                    ))}
-                </div>
+           
             </section>
         </main>
     );
