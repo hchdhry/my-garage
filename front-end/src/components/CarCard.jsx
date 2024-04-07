@@ -1,5 +1,5 @@
 
-import './CarCard.css';
+import '../CarCard.css';
 
 const CarCard = ({ carData }) => {
     return (

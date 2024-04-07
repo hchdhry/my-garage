@@ -25,7 +25,11 @@ const Hero = () => {
                 <p>the online car talk community</p>
             </section>
             <section>
-           
+                {data.length > 0 ? (
+                    data.map((car, index) => <CarCard key={index} carData={car} />)
+                ) : (
+                    <p>Loading...</p>
+                )}
             </section>
         </main>
     );
