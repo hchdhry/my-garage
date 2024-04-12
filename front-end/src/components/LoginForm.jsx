@@ -1,4 +1,6 @@
 import React, { useState } from 'react';
+import Header from './header';
+import "../styles/form.css"
 
 const LoginForm = () => {
     const [formData, setFormData] = useState({
@@ -34,7 +36,10 @@ const LoginForm = () => {
     };
 
     return (
-        <form onSubmit={handleSubmit}>
+        <>
+        <Header/>
+        <div className="login-container">
+        <form className="login-form"  onSubmit={handleSubmit}>
             <div>
                 <label htmlFor="username">username</label>
                 <input
@@ -59,6 +64,8 @@ const LoginForm = () => {
             </div>
             <button type="submit">Login</button>
         </form>
+        </div>
+        </>
     );
 };
 
