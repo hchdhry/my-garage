@@ -29,7 +29,15 @@ const LoginForm = () => {
             });
 
             const data = await response.json();
-            console.log(data);
+            if(data)
+            {
+                localStorage.setItem("token",data.token)   
+                console.log(localStorage.getItem("token"))
+            }
+            else
+            {
+                console.log("error")
+            }
         } catch (error) {
             console.error('Error:', error);
         }
