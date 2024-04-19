@@ -11,13 +11,13 @@ const RegisterForm = () =>
     return (
         <form>
             <label >Username:</label>
-            <input type="text" id="username" name="username" required/>
+            <input type="text" id="username" name="username" value={formData.username}required/>
 
             <label >Email:</label>
-            <input type="email" id="email" name="email" value="user@example.com" required/>
+            <input type="email" id="email" name="email" value={formData.email} required/>
 
             <label >Password:</label>
-            <input type="password" id="password" name="password" required/>
+            <input type="password" id="password" name={formData.password} required/>
 
                         <button type="submit">Submit</button>
             </form>
