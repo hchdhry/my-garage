@@ -15,7 +15,7 @@ const handleChange = (e) =>
     return (
         <form>
             <label >Username:</label>
-            <input type="text" id="username" name="username" onChange={} value={formData.username}required/>
+            <input type="text" id="username" name="username" onChange={handleChange} value={formData.username}required/>
 
             <label >Email:</label>
             <input type="email" id="email" name="email" value={formData.email} required/>

@@ -4,6 +4,10 @@ import CarCard from './CarCard';
 const Hero = () => {
     const [data, setData] = useState([]);
 
+    const randomCarsX3 = data.length >= 3
+        ? [...data].sort(() => Math.random() - 0.5).slice(0, 3)
+        : data;
+
     const fetchData = async () => {
         try {
             const response = await fetch('http://localhost:5003/api/car');
@@ -25,8 +29,8 @@ const Hero = () => {
                 <p>the online car talk community</p>
             </section>
             <section>
-                {data.length > 0 ? (
-                    data.map((car, index) => <CarCard key={index} carData={car} />)
+                {randomCarsX3.length > 0 ? (
+                    randomCarsX3.map((car, index) => <CarCard key={index} carData={car} />)
                 ) : (
                     <p>Loading...</p>
                 )}
