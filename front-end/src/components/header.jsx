@@ -1,4 +1,5 @@
 import { jwtDecode } from "jwt-decode"
+import { Link } from "react-router-dom";
 
 const Header = () => {
     const jwtToken = localStorage.getItem("token")
@@ -17,16 +18,17 @@ const Header = () => {
         <header>
             <nav>
                 <ul>
-                    <li><a href="#">Home</a></li>
+                    <li><Link to="/">home</Link></li>
                     <li><a href="#">About</a></li>
                     <li className="dropdown">
                         <a href="#">Services</a>
                         <div className="dropdown-content">
-                            <a href="/Cars">Cars</a>
-                            <a href="#">Your Garage</a>
+                            <Link to="/cars">Cars</Link>
+                            <Link to="/your-garage">Your Garage</Link>
                         </div>
+
                     </li>
-                    <li><a href="/login">Login</a></li>
+                    <li><Link to = "/login">log in</Link></li>
                     {username && <li>Hello {username}</li>}
                 </ul>
             </nav>
