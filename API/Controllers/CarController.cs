@@ -46,6 +46,17 @@ namespace API.Controllers
             return Ok(listOfCars);
         }
 
+        [HttpGet("full")]
+        public async Task<IActionResult> GetFullCars ([FromQuery] QueryObject query)
+        {
+            var cars = await _carRepo.GetAllCar(query);
+            if (cars == null)
+            {
+                return BadRequest("no cars found");
+            }
+            return Ok(cars);
+        }
+
 
 
 
