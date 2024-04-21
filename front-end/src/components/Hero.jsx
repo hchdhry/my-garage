@@ -10,7 +10,7 @@ const Hero = () => {
 
     const fetchData = async () => {
         try {
-            const response = await fetch('http://localhost:5003/api/car');
+            const response = await fetch('http://localhost:5003/api/Car/full');
             const jsonData = await response.json();
             setData(jsonData);
         } catch (error) {

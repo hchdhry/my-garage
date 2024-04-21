@@ -16,7 +16,7 @@ const CarService = () => {
     {
         e.preventDefault(); 
         try{
-        const response = await fetch(`http://localhost:5003/api/Car/full?MakeQuery=${searchTerm}`)
+            const response = await fetch(`http://localhost:5003/api/Car/full?MakeQuery=${searchTerm}`)
         const data = await response.json()
         setData(data)
         }
