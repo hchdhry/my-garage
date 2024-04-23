@@ -3,13 +3,13 @@ import '../styles/CarCard.css';
 
 const CarCard = ({ carData }) => {
     const [showMore, setShowMore] = useState(false);
-    const handleClick = () => setShowMore(!showMore);
+   
 
     return (
         <div className="card-container">
             <h2 className="card-title">{carData.make} {carData.model}</h2>
             <p className="card-info">Year: {carData.year}</p>
-            <button onClick={handleClick}>{showMore ? 'Show Less' : 'Show More'}</button>
+            <button onClick={()=>{setShowMore((prevState)=>!prevState)}}>{showMore ? 'Show Less' : 'Show More'}</button>
             {showMore && (
                 <>
                     <p className="card-info">Fuel Type: {carData.fuelType || '-'}</p>
@@ -23,7 +23,7 @@ const CarCard = ({ carData }) => {
                     <p className="card-info">Min Combined MPG: {carData.minCombMpg || '-'}</p>
                     <p className="card-info">Max Combined MPG: {carData.maxCombMpg || '-'}</p>
                     <p className="card-info">Limit: {carData.limit || '-'}</p>
-                    
+
                 </>
             )}
         </div>
