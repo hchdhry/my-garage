@@ -32,6 +32,7 @@ namespace API.Controllers
         
         public async Task<IActionResult> GetAllCars([FromQuery]QueryObject query)
         {
+            int skipnumber = (query.PageNumber - 1) * query.PageSize;
             var cars = await _carRepo.GetAllCar(query);
             var listOfCars = cars.Select(car => new CarDTO
             {   
@@ -43,18 +44,19 @@ namespace API.Controllers
             {
                 return BadRequest("no cars found");
             }
-            return Ok(listOfCars);
+            return Ok(listOfCars.Skip(skipnumber).Take(query.PageSize));
         }
 
         [HttpGet("full")]
         public async Task<IActionResult> GetFullCars ([FromQuery] QueryObject query)
         {
+            int skipnumber = (query.PageNumber - 1) * query.PageSize;
             var cars = await _carRepo.GetAllCar(query);
             if (cars == null)
             {
                 return BadRequest("no cars found");
             }
-            return Ok(cars);
+            return Ok(cars.Skip(skipnumber).Take(query.PageSize));
         }
 
 
