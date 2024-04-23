@@ -4,7 +4,7 @@ import '../styles/CarCard.css';
 const CarCard = ({ carData }) => {
     const [showMore, setShowMore] = useState(false);
    
-//test//
+
     return (
         <div className="card-container">
             <h2 className="card-title">{carData.make} {carData.model}</h2>
