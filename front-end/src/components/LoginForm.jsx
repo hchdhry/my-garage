@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
-import Header from './header';
-import "../styles/form.css"
+import { useNavigate } from 'react-router-dom';
 
 const LoginForm = () => {
+    const navigate = useNavigate();
     const [formData, setFormData] = useState({
         username: '',
         password: '',
@@ -18,7 +18,6 @@ const LoginForm = () => {
             username: formData.username,
             password: formData.password,
         });
-
         try {
             const response = await fetch('http://localhost:5003/api/Account/login', {
                 method: 'POST',
@@ -27,16 +26,12 @@ const LoginForm = () => {
                 },
                 body: requestBody,
             });
-
             const data = await response.json();
-            if(data)
-            {
-                localStorage.setItem("token",data.token)   
-                console.log(localStorage.getItem("token"))
-            }
-            else
-            {
-                console.log("error")
+            if (data && data.token) {
+                localStorage.setItem('token', data.token);
+                navigate('/');
+            } else {
+                console.log('error');
             }
         } catch (error) {
             console.error('Error:', error);
@@ -44,36 +39,48 @@ const LoginForm = () => {
     };
 
     return (
-        <>
-        <Header/>
-        <div className="login-container">
-        <form className="login-form"  onSubmit={handleSubmit}>
-            <div>
-                <label htmlFor="username">username</label>
-                <input
-                    type="text"
-                    id="username"
-                    name="username"
-                    value={formData.username} 
-                    onChange={handleChange}
-                    required
-                />
+        <div className="bg-gray-900 min-h-screen flex flex-col">
+            <div className="flex-grow flex items-center justify-center">
+                <div className="bg-gray-800 rounded-lg shadow-lg p-8">
+                    <form className="space-y-6" onSubmit={handleSubmit}>
+                        <div>
+                            <label htmlFor="username" className="text-white font-semibold">
+                                Username
+                            </label>
+                            <input
+                                type="text"
+                                id="username"
+                                name="username"
+                                value={formData.username}
+                                onChange={handleChange}
+                                required
+                                className="w-full px-4 py-2 rounded-md bg-gray-700 text-white focus:outline-none focus:ring-2 focus:ring-orange-500"
+                            />
+                        </div>
+                        <div>
+                            <label htmlFor="password" className="text-white font-semibold">
+                                Password
+                            </label>
+                            <input
+                                type="password"
+                                id="password"
+                                name="password"
+                                value={formData.password}
+                                onChange={handleChange}
+                                required
+                                className="w-full px-4 py-2 rounded-md bg-gray-700 text-white focus:outline-none focus:ring-2 focus:ring-orange-500"
+                            />
+                        </div>
+                        <button
+                            type="submit"
+                            className="w-full bg-orange-500 text-white py-2 rounded-md hover:bg-orange-600 transition-colors duration-300"
+                        >
+                            Login
+                        </button>
+                    </form>
+                </div>
             </div>
-            <div>
-                <label htmlFor="password">Password</label>
-                <input
-                    type="password"
-                    id="password"
-                    name="password"
-                    value={formData.password}
-                    onChange={handleChange}
-                    required
-                />
-            </div>
-            <button type="submit">Login</button>
-        </form>
         </div>
-        </>
     );
 };
 
