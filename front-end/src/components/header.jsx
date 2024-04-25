@@ -1,9 +1,10 @@
-import { jwtDecode } from "jwt-decode"
+import React from "react";
+import { jwtDecode } from "jwt-decode";
 import { Link } from "react-router-dom";
 
 const Header = () => {
-    const jwtToken = localStorage.getItem("token")
-    let username = ""
+    const jwtToken = localStorage.getItem("token");
+    let username = "";
 
     if (jwtToken) {
         try {
@@ -14,27 +15,36 @@ const Header = () => {
         }
     }
 
+    const name = ""; 
+
     return (
-        <header>
+        <header className="bg-gray-900 text-white">
             <nav>
                 <ul>
-                    <li><Link to="/">home</Link></li>
-                    <li><a href="#">About</a></li>
+                    <li><Link to="/" className="text-white">home</Link></li>
+                    <li><a href="#" className="text-white">About</a></li>
                     <li className="dropdown">
-                        <a href="#">Services</a>
+                        <a href="#" className="text-white">Services</a>
                         <div className="dropdown-content">
-                            <Link to="/cars">Cars</Link>
-                            <Link to="/your-garage">Your Garage</Link>
+                            <Link to="/cars" className="text-white">Cars</Link>
+                            <Link to="/your-garage" className="text-white">Your Garage</Link>
                         </div>
-
                     </li>
-                    <li><Link to = "/login">log in</Link></li>
-                    <li><Link to="/register">register</Link></li>
-                    {username && <li>Hello {username}</li>}
+                    {name !== "" ? (
+                        <>
+                            <li><Link to="/login" className="text-white">log in</Link></li>
+                            <li><Link to="/register" className="text-white">register</Link></li>
+                        </>
+                    ) : (
+                        <>
+                        <li className="text-white">Hello {username}</li>
+                        <li className="text-white">Log Out</li>
+                            </>
+                    )}
                 </ul>
             </nav>
         </header>
-    )
+    );
 }
 
 export default Header;
