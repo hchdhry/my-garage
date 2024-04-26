@@ -36,8 +36,14 @@ public async Task<IActionResult> Register(RegisterDto registerDto)
                 Email = registerDto.Email,
                 UserName = registerDto.Username,                
             };
-            var createdUser = await _userManager.CreateAsync(appUser,registerDto.Password);
-            if(createdUser.Succeeded) return Ok("user created");
+              
+                var createdUser = await _userManager.CreateAsync(appUser,registerDto.Password);
+            if(createdUser.Succeeded) {
+                    var role = await _userManager.AddToRoleAsync(appUser, "User");
+                    if(role.Succeeded){
+                    return Ok("user created");}
+                    else { return BadRequest();}
+            }
           
             else { return StatusCode(500, createdUser.Errors); }
             
