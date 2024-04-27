@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 
 const Header = () => {
     const [username, setUsername] = useState("");
+    const [role,setRole] = useState("");
 
     useEffect(() => {
         const handleStorageChange = async () => {
@@ -11,7 +12,9 @@ const Header = () => {
                 const jwtToken = localStorage.getItem("token");
                 if (jwtToken) {
                     const decodedToken = await jwtDecode(jwtToken);
-                    const usernameProp = decodedToken.given_name || decodedToken.username; // Check for different property names
+                    const usernameProp = decodedToken.given_name || decodedToken.username; 
+                    const roleProp = decodedToken.role;
+                    setRole(roleProp);
                     setUsername(usernameProp);
                 } else {
                     setUsername("");
@@ -23,7 +26,7 @@ const Header = () => {
         };
 
         window.addEventListener("storage", handleStorageChange);
-        handleStorageChange(); // Call the function initially
+        handleStorageChange(); 
 
         return () => {
             window.removeEventListener("storage", handleStorageChange);
@@ -32,10 +35,10 @@ const Header = () => {
 
     const handleLogOut = () => {
         localStorage.removeItem("token");
-        setUsername(""); // Update the username state immediately
+        setUsername(""); 
     };
 
-    console.log("Header component rendered"); // Add this line for debugging
+   
 
      return (
         <header className="bg-gray-900 text-white">
@@ -66,7 +69,7 @@ const Header = () => {
                     </li>
                     {username !== "" ? (
                         <>
-                            <li className="text-white">Hello {username}</li>
+                            <li className="text-white">Hello {`${role},${username}`}</li>
                             <button className="text-white" onClick={handleLogOut}>
                                 Log Out
                             </button>
