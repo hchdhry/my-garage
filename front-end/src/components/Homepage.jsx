@@ -9,7 +9,6 @@ const HomePage = () => {
             <Header />
             <Hero />
             <Footer />
-           
         </div>
     );
 };

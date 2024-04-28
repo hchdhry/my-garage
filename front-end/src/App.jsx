@@ -4,6 +4,7 @@ import LoginForm from './components/LoginForm';
 import CarService from './components/CarService';
 import RegisterForm from './components/RegisterForm';
 import NotFound from './components/NotFound';
+import Garage from './components/Garage';
 function App() {
   const router = createBrowserRouter([
     {
@@ -22,6 +23,10 @@ function App() {
     },
     {path:"*",
      element:<NotFound/>
+    },
+    {
+      path:"/garage",
+      element:<Garage/>
     }
   ]);
 
