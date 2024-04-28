@@ -1,10 +1,10 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState,createContext} from "react";
 import { jwtDecode } from "jwt-decode";
 import { Link } from "react-router-dom";
 
 const Header = () => {
-    const [username, setUsername] = useState("");
-    const [role,setRole] = useState("");
+
+    const [userDetails,setUserDetails] = useState({username:null,role:null});
 
     useEffect(() => {
         const handleStorageChange = async () => {
@@ -14,14 +14,14 @@ const Header = () => {
                     const decodedToken = await jwtDecode(jwtToken);
                     const usernameProp = decodedToken.given_name || decodedToken.username; 
                     const roleProp = decodedToken.role;
-                    setRole(roleProp);
-                    setUsername(usernameProp);
+                    setUserDetails({username:usernameProp,role:roleProp})
+                   
                 } else {
-                    setUsername("");
+                    setUserDetails({username:null,role:null});
                 }
             } catch (error) {
                 console.error("Error decoding JWT token:", error);
-                setUsername("");
+                
             }
         };
 
@@ -35,7 +35,7 @@ const Header = () => {
 
     const handleLogOut = () => {
         localStorage.removeItem("token");
-        setUsername(""); 
+        setUserDetails({username:null,role:null}); 
     };
 
    
@@ -67,9 +67,9 @@ const Header = () => {
                             </Link>
                         </div>
                     </li>
-                    {username !== "" ? (
+                    {userDetails.username !== null ? (
                         <>
-                            <li className="text-white">Hello {`${role},${username}`}</li>
+                            <li className="text-white">Hello {`${userDetails.role},${userDetails.username}`}</li>
                             <button className="text-white" onClick={handleLogOut}>
                                 Log Out
                             </button>
