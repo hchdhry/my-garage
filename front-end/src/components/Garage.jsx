@@ -36,8 +36,8 @@ const Garage = () => {
                         <p className="text-lg text-gray-400 text-center">the online car talk community</p>
                     </section>
                     <section className="py-10">
-                        {data.length > 0 ? (
-                            data.map((car, index) => <CarCard key={index} carData={car} />)
+                        {randomCarsX3.length > 0 ? (
+                            randomCarsX3.map((car, index) => <CarCard key={index} carData={car} />)
                         ) : (
                             <p className="text-lg text-gray-400 text-center">Loading...</p>
                         )}
