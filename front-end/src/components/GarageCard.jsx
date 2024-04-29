@@ -1,12 +1,16 @@
-import { useState } from 'react';
+import { useState} from 'react';
+import { Navigate, useNavigate } from 'react-router-dom';
 
 const GarageCard = ({ carData,}) => {
+
+    const [data, setData] = useState([]);
     const [showMore, setShowMore] = useState(false);
+
     const jwtToken = localStorage.getItem("token");
     const handleDelete = async () => {
         try {
-            const response = await fetch(`http://localhost:5003/api/Garage/${carData.ID}`, {
-                method: 'GET',
+            const response = await fetch(`http://localhost:5003/api/Garage/${carData.carId}`, {
+                method: 'DELETE',
                 headers: {
                     'accept': '*/*',
                     'Authorization': `Bearer ${jwtToken}`
@@ -14,6 +18,7 @@ const GarageCard = ({ carData,}) => {
             });
             const jsonData = await response.json();
             setData(jsonData);
+          
         } catch (error) {
             console.log(error);
         }

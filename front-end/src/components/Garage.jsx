@@ -1,6 +1,7 @@
 import React, { useState,useEffect} from 'react';
 import Header from './header';
 import CarCard from './CarCard';
+import GarageCard from './GarageCard';
 
 const Garage = () => {
    
@@ -37,7 +38,7 @@ const Garage = () => {
                     </section>
                     <section className="py-10">
                         {randomCarsX3.length > 0 ? (
-                            randomCarsX3.map((car, index) => <CarCard key={index} carData={car} />)
+                            randomCarsX3.map((car, index) => <GarageCard key={index} carData={car} />)
                         ) : (
                             <p className="text-lg text-gray-400 text-center">Loading...</p>
                         )}
