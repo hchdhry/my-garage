@@ -33,7 +33,8 @@ public class GarageRepository : IGarageRepository
           username = Car.UserId,
           Make = Car.Car.Make,
           Model = Car.Car.Model,
-          Year = Car.Car.Year
+          Year = Car.Car.Year,
+          CarId = Car.CarId
             
 
         }).ToListAsync();
