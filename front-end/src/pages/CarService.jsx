@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-import Header from './header';
-import CarCard from './CarCard';
+import Header from '../components/header';
+import CarCard from '../components/CarCard';
 
 const CarService = () => {
     const [searchTerm, setSearchTerm] = useState('');

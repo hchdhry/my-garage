@@ -1,5 +1,5 @@
 import { useState } from "react";
-import Header from "./header";
+import Header from "../components/header";
 
 const RegisterForm = () => {
     const [formData, setFormData] = useState({

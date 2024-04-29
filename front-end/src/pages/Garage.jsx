@@ -1,7 +1,7 @@
 import React, { useState,useEffect} from 'react';
-import Header from './header';
-import CarCard from './CarCard';
-import GarageCard from './GarageCard';
+import Header from '../components/header';
+import CarCard from '../components/CarCard';
+import GarageCard from '../components/GarageCard';
 
 const Garage = () => {
    

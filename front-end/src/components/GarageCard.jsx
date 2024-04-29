@@ -1,12 +1,11 @@
-import { useState} from 'react';
-import { Navigate, useNavigate } from 'react-router-dom';
+import { useState } from 'react';
+import { Link } from 'react-router-dom';
 
-const GarageCard = ({ carData,}) => {
-
+const GarageCard = ({ carData }) => {
     const [data, setData] = useState([]);
     const [showMore, setShowMore] = useState(false);
-
     const jwtToken = localStorage.getItem("token");
+
     const handleDelete = async () => {
         try {
             const response = await fetch(`http://localhost:5003/api/Garage/${carData.carId}`, {
@@ -18,7 +17,6 @@ const GarageCard = ({ carData,}) => {
             });
             const jsonData = await response.json();
             setData(jsonData);
-          
         } catch (error) {
             console.log(error);
         }
@@ -30,12 +28,20 @@ const GarageCard = ({ carData,}) => {
                 <h2 className="text-2xl font-bold text-white">
                     {carData.make} {carData.model}
                 </h2>
-                <button
-                    onClick={handleDelete}
-                    className="bg-red-500 text-white px-4 py-2 rounded-md hover:bg-red-600 transition-colors duration-300"
-                >
-                    Delete
-                </button>
+                <div>
+                    <Link
+                        to={`/comment`}
+                        className="bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600 transition-colors duration-300 mr-2"
+                    >
+                        Comment
+                    </Link>
+                    <button
+                        onClick={handleDelete}
+                        className="bg-red-500 text-white px-4 py-2 rounded-md hover:bg-red-600 transition-colors duration-300"
+                    >
+                        Delete
+                    </button>
+                </div>
             </div>
             <p className="text-gray-400 mb-4">Year: {carData.year}</p>
             <button

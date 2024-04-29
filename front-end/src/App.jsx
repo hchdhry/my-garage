@@ -1,10 +1,10 @@
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
-import HomePage from './components/Homepage';
-import LoginForm from './components/LoginForm';
-import CarService from './components/CarService';
-import RegisterForm from './components/RegisterForm';
-import NotFound from './components/NotFound';
-import Garage from './components/Garage';
+import HomePage from './pages/Homepage';
+import LoginForm from './pages/LoginForm';
+import CarService from './pages/CarService';
+import RegisterForm from './pages/RegisterForm';
+import NotFound from './pages/NotFound';
+import Garage from './pages/Garage';
 function App() {
   const router = createBrowserRouter([
     {
