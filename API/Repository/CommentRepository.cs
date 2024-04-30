@@ -38,6 +38,10 @@ public class CommentRepository : ICommentRepository
         return await _dbcontext.Comment.Include(a => a.User).FirstOrDefaultAsync(c=>c.Id == id);
        
     }
+    public async Task<List<Comment>> GetAllById(int CarId)
+    {
+        return await _dbcontext.Comment.Where(c => c.CarId == CarId).ToListAsync();
+    }
 
     public async Task<Comment> UpdateComment(int CommentId, UpdateCommentDTO comment)
     {

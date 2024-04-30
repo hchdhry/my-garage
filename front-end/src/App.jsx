@@ -5,6 +5,7 @@ import CarService from './pages/CarService';
 import RegisterForm from './pages/RegisterForm';
 import NotFound from './pages/NotFound';
 import Garage from './pages/Garage';
+import CommentsPage from './pages/CommentsPage';
 function App() {
   const router = createBrowserRouter([
     {
@@ -27,6 +28,10 @@ function App() {
     {
       path:"/garage",
       element:<Garage/>
+    },
+    {
+      path:"/CommentsPage",
+      element:<CommentsPage/>
     }
   ]);
 

@@ -1,6 +1,5 @@
 import React, { useState,useEffect} from 'react';
 import Header from '../components/header';
-import CarCard from '../components/CarCard';
 import GarageCard from '../components/GarageCard';
 
 const Garage = () => {

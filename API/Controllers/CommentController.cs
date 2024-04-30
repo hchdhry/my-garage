@@ -22,7 +22,7 @@ public class CommentController: ControllerBase
     }
     [Authorize]
     [HttpPost("{CarId:int}")]
-    public async Task<IActionResult> CreateComment(int CarId, [FromBody] CreateCommentDto comment)
+    public async Task<IActionResult> CreateComment([FromRoute]int CarId, [FromBody] CreateCommentDto comment)
     {
 
         if (!ModelState.IsValid)
@@ -56,6 +56,17 @@ public class CommentController: ControllerBase
         var UpdateComment = await _commentRepository.UpdateComment(CommentId,commentDTO);
         if(UpdateComment == null) return BadRequest("comment not found");
         return Ok(UpdateComment);
+    }
+
+    [HttpGet("{CarId:int}")]
+    public async Task<IActionResult> GetComments([FromRoute] int CarId)
+    {
+        var comments = await _commentRepository.GetAllById(CarId);
+        if (comments == null || !comments.Any())
+            return NotFound("No comments found");
+
+        List<CommentDTO> listOfCommentDTO = comments.Select(e => e.CommentToDTO()).ToList();
+        return Ok(listOfCommentDTO);
     }
 
 
