@@ -5,13 +5,13 @@ import Header from '../components/header';
 const CommentsPage = () => {
     const {carId} = useParams();
     const [comments, setComments] = useState([]);
-    const [newComment, setNewComment] = useState({ Title: '', Text: '' });
+    const [newComment, setNewComment] = useState({ title: '', text: '' });
     const jwtToken = localStorage.getItem("token");
 
     useEffect(() => {
         const fetchComments = async () => {
             try {
-                const response = await fetch(`http://localhost:5003/api/Comment/${carId}}`, {
+                const response = await fetch(`http://localhost:5003/api/Comment/${carId}`, {
                     headers: {
                         'Authorization': `Bearer ${jwtToken}`
                     }
@@ -32,11 +32,11 @@ const CommentsPage = () => {
     }, []);
 
     const handleTitleChange = (e) => {
-        setNewComment({ ...newComment, Title: e.target.value });
+        setNewComment({ ...newComment, title: e.target.value });
     };
 
     const handleTextChange = (e) => {
-        setNewComment({ ...newComment, Text: e.target.value });
+        setNewComment({ ...newComment, text: e.target.value });
     };
 
     const handleSubmit = async (e) => {
@@ -55,7 +55,7 @@ const CommentsPage = () => {
 
             if (response.ok) {
                 console.log('Comment submitted successfully');
-                setNewComment({ Title: '', Text: '' });
+                setNewComment({ title: '', text: '' });
             
             } else {
                 console.error('Error submitting comment:', response.status);
@@ -72,13 +72,16 @@ const CommentsPage = () => {
                 <div className="container mx-auto px-4">
                     <h1 className="text-2xl font-bold text-white mb-4">Comments</h1>
                     <div className="bg-gray-800 rounded-lg p-4 mb-4">
-                        {comments.length === 0 ? (
+                        {!comments.length === 0 ? (
                             <p className="text-gray-400">No comments yet.</p>
                         ) : (
                             <ul>
-                                {comments.map((comment) => (
-                                    <li key={comment.id} className="text-gray-300 mb-2">
-                                        {comment.Text}
+                                {comments.map((comment, index) => (
+                                    <li key={index} className="text-gray-300 mb-2">
+                                        <div>
+                                            <p className="font-semibold">{comment.title}</p>
+                                            <p>{comment.text}</p>
+                                        </div>
                                     </li>
                                 ))}
                             </ul>

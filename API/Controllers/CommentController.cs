@@ -26,7 +26,7 @@ public class CommentController: ControllerBase
     {
 
         if (!ModelState.IsValid)
-            return BadRequest(ModelState);
+            return BadRequest("oops");
 
         var username = User.getUserName();
         var appUser = await _userManager.FindByNameAsync(username);
