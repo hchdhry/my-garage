@@ -6,6 +6,7 @@ import RegisterForm from './pages/RegisterForm';
 import NotFound from './pages/NotFound';
 import Garage from './pages/Garage';
 import CommentsPage from './pages/CommentsPage';
+
 function App() {
   const router = createBrowserRouter([
     {
@@ -16,23 +17,26 @@ function App() {
       path: '/login',
       element: <LoginForm />,
     },
-    {path:'/Cars',
-    element:<CarService/>},
     {
-      path:'/register',
-      element:<RegisterForm/>
-    },
-    {path:"*",
-     element:<NotFound/>
+      path: '/Cars',
+      element: <CarService />,
     },
     {
-      path:"/garage",
-      element:<Garage/>
+      path: '/register',
+      element: <RegisterForm />,
     },
     {
-      path:"/CommentsPage",
-      element:<CommentsPage/>
-    }
+      path: "*",
+      element: <NotFound />,
+    },
+    {
+      path: "/garage",
+      element: <Garage />,
+    },
+    {
+      path: "/CommentsPage/:carId",
+      element: <CommentsPage />,
+    },
   ]);
 
   return <RouterProvider router={router} />;

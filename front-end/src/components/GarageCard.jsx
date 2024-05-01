@@ -29,10 +29,7 @@ const GarageCard = ({ carData }) => {
                     {carData.make} {carData.model}
                 </h2>
                 <div>
-                    <Link
-                        to={`/CommentsPage`}
-                        className="bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600 transition-colors duration-300 mr-2"
-                    >
+                    <Link to={`/CommentsPage/${carData.carId}`} className="bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600 transition-colors duration-300 mr-2">
                         Comment
                     </Link>
                     <button
