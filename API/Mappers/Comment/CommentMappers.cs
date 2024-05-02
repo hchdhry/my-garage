@@ -23,6 +23,7 @@ public static class CommentMappers
         {
             Title = comment.Title,
             Text = comment.Text,
+            Username = comment.User?.UserName ?? "Unknown User"
 
         };
 
