@@ -1,12 +1,14 @@
 import React, { useState, useEffect } from 'react';
 import { useParams} from 'react-router-dom';
 import Header from '../components/header';
+import { array } from 'yup';
 
 const CommentsPage = () => {
     const {carId} = useParams();
     const [comments, setComments] = useState([]);
     const [newComment, setNewComment] = useState({ title: '', text: '' });
     const jwtToken = localStorage.getItem("token");
+    const render = array[1]
 
     useEffect(() => {
         const fetchComments = async () => {
@@ -38,7 +40,6 @@ const CommentsPage = () => {
     const handleTextChange = (e) => {
         setNewComment({ ...newComment, text: e.target.value });
     };
-
     const handleSubmit = async (e) => {
         e.preventDefault();
 
@@ -56,7 +57,20 @@ const CommentsPage = () => {
             if (response.ok) {
                 console.log('Comment submitted successfully');
                 setNewComment({ title: '', text: '' });
-            
+
+                
+                const commentsResponse = await fetch(`http://localhost:5003/api/Comment/${carId}`, {
+                    headers: {
+                        'Authorization': `Bearer ${jwtToken}`
+                    }
+                });
+
+                if (commentsResponse.ok) {
+                    const comments = await commentsResponse.json();
+                    setComments(comments);
+                } else {
+                    console.error('Error fetching comments:', commentsResponse.status);
+                }
             } else {
                 console.error('Error submitting comment:', response.status);
             }
@@ -64,7 +78,6 @@ const CommentsPage = () => {
             console.error('Error submitting comment:', error);
         }
     };
-
     return (
         <>
             <Header />
@@ -90,14 +103,14 @@ const CommentsPage = () => {
                     <div className="bg-gray-800 rounded-lg p-4">
                         <form onSubmit={handleSubmit}>
                             <textarea
-                                value={newComment.Title}
+                                value={newComment.title}
                                 onChange={handleTitleChange}
                                 placeholder="Title"
                                 className="bg-gray-700 text-gray-300 border border-gray-600 rounded-md px-3 py-2 w-full mb-2"
                                 rows="1"
                             />
                             <textarea
-                                value={newComment.Text}
+                                value={newComment.text}
                                 onChange={handleTextChange}
                                 placeholder="Enter your comment..."
                                 className="bg-gray-700 text-gray-300 border border-gray-600 rounded-md px-3 py-2 w-full mb-2"
