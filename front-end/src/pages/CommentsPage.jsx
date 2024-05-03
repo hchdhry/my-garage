@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useParams} from 'react-router-dom';
 import Header from '../components/header';
+import CommentItem from '../components/CommentItems';
 import { array } from 'yup';
 
 const CommentsPage = () => {
@@ -85,17 +86,12 @@ const CommentsPage = () => {
                 <div className="container mx-auto px-4">
                     <h1 className="text-2xl font-bold text-white mb-4">Comments</h1>
                     <div className="bg-gray-800 rounded-lg p-4 mb-4">
-                        {!comments.length === 0 ? (
+                        {comments.length === 0 ? (
                             <p className="text-gray-400">No comments yet.</p>
                         ) : (
-                            <ul>
+                            <ul className="list-none">
                                 {comments.map((comment, index) => (
-                                    <li key={index} className="text-gray-300 mb-2">
-                                        <div>
-                                            <p className="font-semibold">{comment.title}</p>
-                                            <p>{comment.text}</p>
-                                        </div>
-                                    </li>
+                                    <CommentItem key={index} comment={comment} />
                                 ))}
                             </ul>
                         )}

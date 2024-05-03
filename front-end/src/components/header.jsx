@@ -46,7 +46,7 @@ const Header = () => {
          
              <header className="bg-gray-900 text-white">
                  <nav>
-                     <ul>
+                 <ul className="list-none" >
                          <li>
                              <Link to="/" className="text-white">
                                  home
