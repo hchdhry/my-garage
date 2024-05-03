@@ -158,7 +158,9 @@ footer {
   position: relative;
   display: inline-block;
 }
-
+li::before {
+  content: "";
+}
 .dropdown-content {
   display: none;
   position: absolute;
