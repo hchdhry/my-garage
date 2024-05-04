@@ -1,7 +1,10 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect,createContext } from 'react';
 import CarCard from './CarCard';
 
+
+export const TokenContext = createContext(); 
 const Hero = () => {
+    const jwtToken = localStorage.getItem("token");
     const [data, setData] = useState([]);
     const randomCarsX3 = data.length >= 3 ? [...data].sort(() => Math.random() - 0.5).slice(0, 3) : data;
 
@@ -27,7 +30,11 @@ const Hero = () => {
             </section>
             <section className="py-10">
                 {randomCarsX3.length > 0 ? (
-                    randomCarsX3.map((car, index) => <CarCard key={index} carData={car} />)
+                    <TokenContext.Provider value={jwtToken}>
+                        {randomCarsX3.map((car, index) => (
+                            <CarCard key={index} carData={car} />
+                        ))}
+                    </TokenContext.Provider>
                 ) : (
                     <p className="text-lg text-gray-400 text-center">Loading...</p>
                 )}

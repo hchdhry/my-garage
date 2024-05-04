@@ -12,8 +12,8 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace API.Migrations
 {
     [DbContext(typeof(ApplicationDBContext))]
-    [Migration("20240329152941_newDB")]
-    partial class newDB
+    [Migration("20240504140122_createDB")]
+    partial class createDB
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -226,13 +226,13 @@ namespace API.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "f28676bd-6e97-40e3-bf9f-23cba786f65b",
+                            Id = "81a12120-d3e0-4a69-ae7c-b04912960cc1",
                             Name = "Admin",
                             NormalizedName = "ADMIN"
                         },
                         new
                         {
-                            Id = "c284e1fa-7026-4842-8472-aa1b72bc8015",
+                            Id = "dcf921f1-12e0-4a51-a02b-1d3585469372",
                             Name = "User",
                             NormalizedName = "USER"
                         });
