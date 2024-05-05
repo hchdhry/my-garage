@@ -2,6 +2,7 @@
 using API.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.IdentityModel.Tokens;
 
 namespace API.Controllers
 {
@@ -52,7 +53,7 @@ namespace API.Controllers
         {
             int skipnumber = (query.PageNumber - 1) * query.PageSize;
             var cars = await _carRepo.GetAllCar(query);
-            if (cars == null)
+            if (cars.IsNullOrEmpty() )
             {
                 return BadRequest("no cars found");
             }

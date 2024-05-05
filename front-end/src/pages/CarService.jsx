@@ -5,6 +5,7 @@ import CarCard from '../components/CarCard';
 const CarService = () => {
     const [searchTerm, setSearchTerm] = useState('');
     const [data, setData] = useState([]);
+    const jwtToken = localStorage.getItem("token");
 
     const handleSearchChange = (e) => {
         setSearchTerm(e.target.value);
@@ -13,7 +14,24 @@ const CarService = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-            const response = await fetch(`http://localhost:5003/api/Car/full?MakeQuery=${searchTerm}`);
+            
+            let response = await fetch(`http://localhost:5003/api/Car/full?MakeQuery=${searchTerm}`);
+            console.log('First request status:', response.ok);
+            if (!response.ok) {
+                try {
+                    response = await fetch(`http://localhost:5003/api/Car`, {
+                        method: 'POST',
+                        headers: {
+                            'accept': '*/*',
+                            'Authorization': `Bearer ${jwtToken}`,
+                            'Content-Type': 'application/json-patch+json'
+                        },
+                        body: JSON.stringify(searchTerm)
+                    });
+                } catch (e) {
+                    console.log(e);
+                }
+            }
             const data = await response.json();
             setData(data);
         } catch (e) {
@@ -34,7 +52,10 @@ const CarService = () => {
                             onChange={handleSearchChange}
                             className="bg-transparent text-gray-300 placeholder-gray-500 outline-none flex-grow"
                         />
-                        <button type="submit" className="bg-orange-500 text-white px-4 py-2 rounded-md hover:bg-orange-600 transition-colors duration-300">
+                        <button
+                            type="submit"
+                            className="bg-orange-500 text-white px-4 py-2 rounded-md hover:bg-orange-600 transition-colors duration-300"
+                        >
                             Submit
                         </button>
                     </div>
