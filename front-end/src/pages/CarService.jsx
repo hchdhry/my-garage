@@ -28,11 +28,13 @@ const CarService = () => {
                         },
                         body: JSON.stringify(searchTerm)
                     });
+                    var data  = await response.json()
+                    setData([data]);
                 } catch (e) {
                     console.log(e);
                 }
             }
-            const data = await response.json();
+              data = await response.json();
             setData(data);
         } catch (e) {
             console.log(e);

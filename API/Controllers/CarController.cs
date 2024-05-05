@@ -53,7 +53,7 @@ namespace API.Controllers
         {
             int skipnumber = (query.PageNumber - 1) * query.PageSize;
             var cars = await _carRepo.GetAllCar(query);
-            if (cars.IsNullOrEmpty() )
+            if (cars.IsNullOrEmpty())
             {
                 return BadRequest("no cars found");
             }
