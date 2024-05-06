@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "qa9h9V8yvWxBn4EMmzScOX4rnMxO5kz8oN829RH9i+QFAfrbVBDwN9I06L19LOlEE3w0El1v3rlfI50XNY+VRw==",
+  "dgSpecHash": "heE8Dzi76Q11HO1FS2z6e3ttVEdqJZWU1pQV5Cq/Hv0rgZWzKWC3A4iFbW6Gn1Kuk08zRiYb78ySY7JYNhfGSw==",
   "success": true,
   "projectFilePath": "/Users/hassan/dotnet/my-garage/API/API.csproj",
   "expectedPackageFiles": [
@@ -29,8 +29,9 @@
     "/Users/hassan/.nuget/packages/microsoft.extensions.apidescription.server/6.0.5/microsoft.extensions.apidescription.server.6.0.5.nupkg.sha512",
     "/Users/hassan/.nuget/packages/microsoft.extensions.caching.abstractions/8.0.0/microsoft.extensions.caching.abstractions.8.0.0.nupkg.sha512",
     "/Users/hassan/.nuget/packages/microsoft.extensions.caching.memory/8.0.0/microsoft.extensions.caching.memory.8.0.0.nupkg.sha512",
-    "/Users/hassan/.nuget/packages/microsoft.extensions.configuration/1.1.2/microsoft.extensions.configuration.1.1.2.nupkg.sha512",
+    "/Users/hassan/.nuget/packages/microsoft.extensions.configuration/8.0.0/microsoft.extensions.configuration.8.0.0.nupkg.sha512",
     "/Users/hassan/.nuget/packages/microsoft.extensions.configuration.abstractions/8.0.0/microsoft.extensions.configuration.abstractions.8.0.0.nupkg.sha512",
+    "/Users/hassan/.nuget/packages/microsoft.extensions.configuration.environmentvariables/8.0.0/microsoft.extensions.configuration.environmentvariables.8.0.0.nupkg.sha512",
     "/Users/hassan/.nuget/packages/microsoft.extensions.dependencyinjection/8.0.0/microsoft.extensions.dependencyinjection.8.0.0.nupkg.sha512",
     "/Users/hassan/.nuget/packages/microsoft.extensions.dependencyinjection.abstractions/8.0.0/microsoft.extensions.dependencyinjection.abstractions.8.0.0.nupkg.sha512",
     "/Users/hassan/.nuget/packages/microsoft.extensions.dependencymodel/8.0.0/microsoft.extensions.dependencymodel.8.0.0.nupkg.sha512",

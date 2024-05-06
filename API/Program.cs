@@ -48,6 +48,7 @@ builder.Services.AddSwaggerGen(option =>
 builder.Services.AddDbContext<ApplicationDBContext>(options =>{
     options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection"));
 });
+
 builder.Services.AddIdentity<User, IdentityRole>(Options =>
 {
     Options.Password.RequireLowercase = true;
@@ -112,6 +113,7 @@ if (app.Environment.IsDevelopment())
 }
 app.UseCors("AllowReact"); 
 app.UseHttpsRedirection();
+
 
 app.UseAuthentication();
 app.UseAuthorization();
