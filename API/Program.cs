@@ -16,7 +16,6 @@ var builder = WebApplication.CreateBuilder(args);
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddControllers();
-var port = Environment.GetEnvironmentVariable("PORT") ?? "8080";
 builder.Services.AddSwaggerGen();
 builder.Services.AddSwaggerGen(option =>
 {
@@ -101,6 +100,10 @@ builder.Services.AddCors(options =>
              .AllowCredentials();
 
 });
+});
+builder.WebHost.ConfigureKestrel(serverOptions =>
+{
+    serverOptions.ListenAnyIP(5003);
 });
 
 
