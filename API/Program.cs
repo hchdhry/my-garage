@@ -94,17 +94,14 @@ builder.Services.AddCors(options =>
         builder =>
         {
             builder
-            .WithOrigins("http://127.0.0.1:3000") 
+            .WithOrigins("http://localhost:3000") 
             .AllowAnyHeader()
             .AllowAnyMethod()
              .AllowCredentials();
 
 });
 });
-builder.WebHost.ConfigureKestrel(serverOptions =>
-{
-    serverOptions.ListenAnyIP(5003);
-});
+
 
 
 
@@ -116,6 +113,7 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
+app.MapGet("/test", () => "Hello World!");
 app.UseCors("AllowReact"); 
 app.UseHttpsRedirection();
 
