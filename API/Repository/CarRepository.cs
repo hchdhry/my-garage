@@ -83,6 +83,10 @@ public class CarRepository:ICarRepository
     {
         cars = cars.OrderBy(c => c.Year);
     }
+    if(!string.IsNullOrWhiteSpace(query.DriveType))
+    {
+        cars = cars.Where(c =>c.Drive == query.DriveType);
+    }
     else
     {
         cars = cars.OrderByDescending(c => c.Year);
