@@ -1,38 +1,39 @@
 import React, { useState, useEffect } from 'react';
-import { useParams} from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import Header from '../components/header';
 import CommentItem from '../components/CommentItems';
-import { array } from 'yup';
 
 const CommentsPage = () => {
-    const {carId} = useParams();
+    const { carId } = useParams();
     const [comments, setComments] = useState([]);
     const [newComment, setNewComment] = useState({ title: '', text: '' });
     const jwtToken = localStorage.getItem("token");
-    const render = array[1]
+    const [error, setError] = useState({});
+
+    const fetchComments = async () => {
+        try {
+            const response = await fetch(`http://localhost:5003/api/Comment/${carId}`, {
+                headers: {
+                    'Authorization': `Bearer ${jwtToken}`
+                }
+            });
+
+            if (response.ok) {
+                const comments = await response.json();
+                setComments(comments);
+            } else {
+                console.error('Error fetching comments:', response.status);
+                setError({ general: 'Failed to fetch comments. Please try again.' });
+            }
+        } catch (error) {
+            console.error('Error fetching comments:', error);
+            setError({ general: 'An error occurred while fetching comments.' });
+        }
+    };
 
     useEffect(() => {
-        const fetchComments = async () => {
-            try {
-                const response = await fetch(`http://localhost:5003/api/Comment/${carId}`, {
-                    headers: {
-                        'Authorization': `Bearer ${jwtToken}`
-                    }
-                });
-
-                if (response.ok) {
-                    const comments = await response.json();
-                    setComments(comments);
-                } else {
-                    console.error('Error fetching comments:', response.status);
-                }
-            } catch (error) {
-                console.error('Error fetching comments:', error);
-            }
-        };
-
         fetchComments();
-    }, []);
+    }, [carId, jwtToken]);
 
     const handleTitleChange = (e) => {
         setNewComment({ ...newComment, title: e.target.value });
@@ -41,8 +42,10 @@ const CommentsPage = () => {
     const handleTextChange = (e) => {
         setNewComment({ ...newComment, text: e.target.value });
     };
+
     const handleSubmit = async (e) => {
         e.preventDefault();
+        setError({});
 
         try {
             const response = await fetch(`http://localhost:5003/api/Comment/${carId}`, {
@@ -58,27 +61,20 @@ const CommentsPage = () => {
             if (response.ok) {
                 console.log('Comment submitted successfully');
                 setNewComment({ title: '', text: '' });
-
-                
-                const commentsResponse = await fetch(`http://localhost:5003/api/Comment/${carId}`, {
-                    headers: {
-                        'Authorization': `Bearer ${jwtToken}`
-                    }
-                });
-
-                if (commentsResponse.ok) {
-                    const comments = await commentsResponse.json();
-                    setComments(comments);
-                } else {
-                    console.error('Error fetching comments:', commentsResponse.status);
-                }
+                await fetchComments();
             } else {
-                console.error('Error submitting comment:', response.status);
+                const errorData = await response.json();
+                setError({
+                    title: errorData.errors?.Title?.[0],
+                    text: errorData.errors?.Text?.[0]
+                });
             }
         } catch (error) {
             console.error('Error submitting comment:', error);
+            setError({ general: 'An error occurred while submitting the comment.' });
         }
     };
+
     return (
         <>
             <Header />
@@ -105,6 +101,7 @@ const CommentsPage = () => {
                                 className="bg-gray-700 text-gray-300 border border-gray-600 rounded-md px-3 py-2 w-full mb-2"
                                 rows="1"
                             />
+                            {error.title && <p className="text-red-500 mb-2">{error.title}</p>}
                             <textarea
                                 value={newComment.text}
                                 onChange={handleTextChange}
@@ -112,6 +109,7 @@ const CommentsPage = () => {
                                 className="bg-gray-700 text-gray-300 border border-gray-600 rounded-md px-3 py-2 w-full mb-2"
                                 rows="3"
                             />
+                            {error.text && <p className="text-red-500 mb-2">{error.text}</p>}
                             <button
                                 type="submit"
                                 className="bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600 transition-colors duration-300"
@@ -119,6 +117,7 @@ const CommentsPage = () => {
                                 Submit
                             </button>
                         </form>
+                        {error.general && <p className="text-red-500 mt-2">{error.general}</p>}
                     </div>
                 </div>
             </div>
