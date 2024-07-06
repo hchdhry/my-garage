@@ -38,12 +38,14 @@ public class CommentRepository : ICommentRepository
         return await _dbcontext.Comment.Include(a => a.User).FirstOrDefaultAsync(c=>c.Id == id);
        
     }
-    public async Task<List<Comment>> GetAllById(int CarId)
+    public async Task<List<Comment>> GetAllById(int CarId, QueryObject queryObject)
     {
-        return await _dbcontext.Comment
-            .Where(c => c.CarId == CarId)
-            .Include(c => c.User) 
-            .ToListAsync();
+      var comments = _dbcontext.Comment.Where(c=> c.CarId == CarId).AsQueryable();
+      if(queryObject.AscendingByYear == true)
+      {
+        comments = comments.OrderBy(c=>c.CreatedAt);
+      }
+      return await comments.ToListAsync();
     }
 
     public async Task<Comment> UpdateComment(int CommentId, UpdateCommentDTO comment)

@@ -59,9 +59,9 @@ public class CommentController: ControllerBase
     }
 
     [HttpGet("{CarId:int}")]
-    public async Task<IActionResult> GetComments([FromRoute] int CarId)
+    public async Task<IActionResult> GetComments([FromRoute] int CarId,[FromQuery] QueryObject queryObject)
     {
-        var comments = await _commentRepository.GetAllById(CarId);
+        var comments = await _commentRepository.GetAllById(CarId,queryObject);
         if (comments == null || !comments.Any())
             return NotFound("No comments found");
 

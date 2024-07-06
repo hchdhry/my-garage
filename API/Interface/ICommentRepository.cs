@@ -12,7 +12,7 @@ public interface ICommentRepository
 
     Task<Comment> GetByID(int id);
 
-    Task<List<Comment>> GetAllById(int CarId);
+    Task<List<Comment>> GetAllById(int CarId, QueryObject queryObject);
 
 }
 }
