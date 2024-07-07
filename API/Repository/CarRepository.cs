@@ -73,7 +73,7 @@ public class CarRepository:ICarRepository
 
  public async Task<List<Car>> GetAllCar(QueryObject query)
 {
-    var cars = _dbcontext.Car.AsQueryable();
+    var cars = _dbcontext.Car.AsNoTracking();
 
     if (!string.IsNullOrWhiteSpace(query.MakeQuery))
     {
