@@ -10,4 +10,8 @@ public class ChatHub:Hub
     {
         _db = dBContext;
     }
+   public async Task JoinChat(UserConnection userConnection)
+   {
+        await Clients.All.SendAsync(method:"RecievedMessage",arg1:$"{userConnection.userName} has joined",arg2:"hi!");
+   }
 }
