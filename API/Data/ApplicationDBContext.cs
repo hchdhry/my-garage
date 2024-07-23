@@ -13,6 +13,7 @@ public class ApplicationDBContext:IdentityDbContext<User>
     }
 
 public DbSet<Car> Car {get ; set ;}
+public DbSet<UserConnection> userConnections {get;set;}
 public DbSet<Comment> Comment {get ; set ;}
 public DbSet<Garage> Garage {get;set;}
 
