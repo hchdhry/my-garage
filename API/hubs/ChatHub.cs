@@ -20,13 +20,13 @@ public class ChatHub:Hub
         {
             Console.WriteLine($"Attempting to join group for user: {userConnection.userName}, ChatRoom: {userConnection.Car}");
 
-          _db.userConnections.Add(userConnection);
+          _db.UserConnections.Add(userConnection);
             Console.WriteLine("User connection added to shared DB");
 
             await Groups.AddToGroupAsync(Context.ConnectionId, groupName: userConnection.Car);
             Console.WriteLine($"User added to group: {userConnection.Car}");
 
-            await Clients.Group(userConnection.Car).SendAsync(method: "ReceivedMessage", arg1: "admin", arg2: $"{userConnection.Username} has joined");
+            await Clients.Group(userConnection.Car).SendAsync(method: "ReceivedMessage", arg1: "admin", arg2: $"{userConnection.userName} has joined");
             Console.WriteLine("Join message sent to group");
         }
         catch (Exception ex)

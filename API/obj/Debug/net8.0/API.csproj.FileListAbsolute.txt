@@ -119,3 +119,9 @@
 /Users/hassan/dotnet/my-garage/API/obj/Debug/net8.0/API.pdb
 /Users/hassan/dotnet/my-garage/API/obj/Debug/net8.0/API.genruntimeconfig.cache
 /Users/hassan/dotnet/my-garage/API/obj/Debug/net8.0/ref/API.dll
+/Users/hassan/dotnet/my-garage/API/bin/Debug/net8.0/Microsoft.AspNet.SignalR.Core.dll
+/Users/hassan/dotnet/my-garage/API/bin/Debug/net8.0/Microsoft.AspNet.SignalR.SystemWeb.dll
+/Users/hassan/dotnet/my-garage/API/bin/Debug/net8.0/Microsoft.Owin.dll
+/Users/hassan/dotnet/my-garage/API/bin/Debug/net8.0/Microsoft.Owin.Host.SystemWeb.dll
+/Users/hassan/dotnet/my-garage/API/bin/Debug/net8.0/Microsoft.Owin.Security.dll
+/Users/hassan/dotnet/my-garage/API/bin/Debug/net8.0/Owin.dll
