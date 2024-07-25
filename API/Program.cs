@@ -9,6 +9,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.OpenApi.Models;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using API.Hubs;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -17,6 +18,7 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddControllers();
 builder.Services.AddSwaggerGen();
+builder.Services.AddSignalR();
 builder.Services.AddSwaggerGen(option =>
 {
     option.SwaggerDoc("v1", new OpenApiInfo { Title = "Demo API", Version = "v1" });
@@ -116,6 +118,7 @@ if (app.Environment.IsDevelopment())
 app.MapGet("/test", () => "Hello World!");
 app.UseCors("AllowReact"); 
 app.UseHttpsRedirection();
+app.MapHub<ChatHub>(pattern:"/chat");
 
 
 app.UseAuthentication();
