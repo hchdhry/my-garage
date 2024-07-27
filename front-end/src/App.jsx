@@ -6,12 +6,16 @@ import RegisterForm from './pages/RegisterForm';
 import NotFound from './pages/NotFound';
 import Garage from './pages/Garage';
 import CommentsPage from './pages/CommentsPage';
+import ChatRoom from './pages/ChatRoom';
 
 function App() {
   const router = createBrowserRouter([
     {
       path: '/',
       element: <HomePage />,
+    },
+    {path:"/chat",
+      element:<ChatRoom/>
     },
     {
       path: '/login',
