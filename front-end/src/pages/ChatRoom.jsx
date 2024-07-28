@@ -7,11 +7,12 @@ const ChatRoom = () => {
     const [chatRoom, setChatRoom] = useState('');
     const [message, setMessage] = useState('');
     const [messages, setMessages] = useState([]);
+    const [error, setError] = useState('');
 
     const joinChat = async () => {
         try {
             const newConnection = new HubConnectionBuilder()
-                .withUrl("http://localhost:5003/chat")
+                .withUrl("http://localhost:5003/Chat")
                 .configureLogging(LogLevel.Information)
                 .build();
 
@@ -19,28 +20,35 @@ const ChatRoom = () => {
                 setMessages(prevMessages => [...prevMessages, `${user}: ${message}`]);
             });
 
+            newConnection.on("ErrorMessage", (errorMessage) => {
+                setError(errorMessage);
+            });
+
             await newConnection.start();
             console.log("Connection started");
 
-            await newConnection.invoke("JoinSpecificGroup", { Username: userName, ChatRoom: chatRoom });
+            await newConnection.invoke("JoinSpecificGroup", { UserName: userName, ChatRoom: chatRoom });
             console.log("Joined specific group");
 
             setConnection(newConnection);
+            setError('');
         } catch (e) {
             console.log(e);
+            setError(`Failed to connect: ${e.message}`);
         }
     };
 
     const sendMessage = async () => {
         if (connection) {
             try {
-                await connection.invoke("SendMessage", { Username: userName, ChatRoom: chatRoom, Message: message });
+                await connection.invoke("SendMessage", { UserName: userName, ChatRoom: chatRoom }, message);
                 setMessage('');
             } catch (e) {
                 console.log(e);
+                setError(`Failed to send message: ${e.message}`);
             }
         } else {
-            console.log("No connection to server yet.");
+            setError("No connection to server yet.");
         }
     };
 
@@ -59,6 +67,8 @@ const ChatRoom = () => {
                 onChange={(e) => setChatRoom(e.target.value)}
             />
             <button onClick={joinChat}>Join Chat</button>
+
+            {error && <div style={{ color: 'red' }}>{error}</div>}
 
             <div>
                 {messages.map((msg, index) => (
