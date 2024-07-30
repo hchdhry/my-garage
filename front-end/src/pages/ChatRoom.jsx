@@ -1,6 +1,19 @@
 import React, { useState, useEffect } from 'react';
 import { HubConnectionBuilder, LogLevel } from "@microsoft/signalr";
 
+const ChatRoomComment = ({ user, message }) => {
+    return (
+        <li className="text-gray-300 mb-2">
+            <div>
+                <p className="font-semibold">
+                    <span className="text-blue-500">{user}</span> says:
+                </p>
+                <p>{message}</p>
+            </div>
+        </li>
+    );
+};
+
 const ChatRoom = () => {
     const [connection, setConnection] = useState(null);
     const [userName, setUserName] = useState('');
@@ -17,7 +30,7 @@ const ChatRoom = () => {
                 .build();
 
             newConnection.on("ReceivedMessage", (user, message) => {
-                setMessages(prevMessages => [...prevMessages, `${user}: ${message}`]);
+                setMessages(prevMessages => [...prevMessages, { user, message }]);
             });
 
             newConnection.on("ErrorMessage", (errorMessage) => {
@@ -53,36 +66,43 @@ const ChatRoom = () => {
     };
 
     return (
-        <div>
-            <input
-                type="text"
-                placeholder="Your Name"
-                value={userName}
-                onChange={(e) => setUserName(e.target.value)}
-            />
-            <input
-                type="text"
-                placeholder="Chat Room"
-                value={chatRoom}
-                onChange={(e) => setChatRoom(e.target.value)}
-            />
-            <button onClick={joinChat}>Join Chat</button>
-
-            {error && <div style={{ color: 'red' }}>{error}</div>}
-
-            <div>
-                {messages.map((msg, index) => (
-                    <div key={index}>{msg}</div>
-                ))}
+        <div className="p-4">
+            <div className="mb-4">
+                <input
+                    type="text"
+                    placeholder="Your Name"
+                    value={userName}
+                    onChange={(e) => setUserName(e.target.value)}
+                    className="mr-2 p-2 border rounded"
+                />
+                <input
+                    type="text"
+                    placeholder="Chat Room"
+                    value={chatRoom}
+                    onChange={(e) => setChatRoom(e.target.value)}
+                    className="mr-2 p-2 border rounded"
+                />
+                <button onClick={joinChat} className="p-2 bg-blue-500 text-white rounded">Join Chat</button>
             </div>
 
-            <input
-                type="text"
-                placeholder="Message"
-                value={message}
-                onChange={(e) => setMessage(e.target.value)}
-            />
-            <button onClick={sendMessage}>Send</button>
+            {error && <div className="text-red-500 mb-4">{error}</div>}
+
+            <ul className="mb-4 h-64 overflow-y-auto bg-gray-800 p-4 rounded">
+                {messages.map((msg, index) => (
+                    <ChatRoomComment key={index} user={msg.user} message={msg.message} />
+                ))}
+            </ul>
+
+            <div>
+                <input
+                    type="text"
+                    placeholder="Message"
+                    value={message}
+                    onChange={(e) => setMessage(e.target.value)}
+                    className="mr-2 p-2 border rounded"
+                />
+                <button onClick={sendMessage} className="p-2 bg-green-500 text-white rounded">Send</button>
+            </div>
         </div>
     );
 };
