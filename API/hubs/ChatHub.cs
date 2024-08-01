@@ -22,24 +22,41 @@ public class ChatHub : Hub
     {
         try
         {
-            Console.WriteLine($"Attempting to join group for user: {userConnection.Car}, ChatRoom: {userConnection.Car}");
+            Console.WriteLine($"Attempting to join group for user: {userConnection.userName}, Car: {userConnection.Car}");
 
-            _db.UserConnections.Add(userConnection);
-            await _db.SaveChangesAsync();
-            Console.WriteLine("User connection added to shared DB");
+            var existingConnection = await _db.UserConnections
+                .FirstOrDefaultAsync(uc => uc.Car == userConnection.Car && uc.userName == userConnection.userName);
+
+            if (existingConnection == null)
+            {
+                
+                await _db.UserConnections.AddAsync(userConnection);
+                await _db.SaveChangesAsync();
+                Console.WriteLine("User connection added to shared DB");
+            }
+            else
+            {
+                Console.WriteLine("User connection already exists in DB");
+            }
 
             await Groups.AddToGroupAsync(Context.ConnectionId, userConnection.Car);
-            Console.WriteLine($"User added to group: {userConnection.Car}");
+            Console.WriteLine($"User added to SignalR group: {userConnection.Car}");
 
-            await Clients.Group(userConnection.Car).SendAsync("ReceivedMessage", "admin", $"{userConnection.Car} has joined");
+            await Clients.Group(userConnection.Car).SendAsync("ReceivedMessage", "admin", $"{userConnection.userName} has joined {userConnection.Car}");
             Console.WriteLine("Join message sent to group");
+        }
+        catch (DbUpdateException dbEx)
+        {
+            Console.Error.WriteLine($"Database error in JoinSpecificGroup: {dbEx.Message}");
+            Console.Error.WriteLine($"Inner exception: {dbEx.InnerException?.Message}");
+            Console.Error.WriteLine($"Stack trace: {dbEx.StackTrace}");
+            await Clients.Caller.SendAsync("ErrorMessage", "An error occurred while updating the database");
         }
         catch (Exception ex)
         {
             Console.Error.WriteLine($"Error in JoinSpecificGroup: {ex.Message}");
             Console.Error.WriteLine($"Stack trace: {ex.StackTrace}");
             await Clients.Caller.SendAsync("ErrorMessage", "An error occurred while joining the group");
-            throw;
         }
     }
 
