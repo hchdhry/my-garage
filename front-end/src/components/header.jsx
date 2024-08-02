@@ -52,6 +52,11 @@ const Header = () => {
                                  home
                              </Link>
                          </li>
+             <li>
+               <Link to="/chat" className="text-white">
+                 chat
+               </Link>
+             </li>
                          <li>
                              <a href="#" className="text-white">
                                  About
