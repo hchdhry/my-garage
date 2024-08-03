@@ -3,8 +3,10 @@ import { TokenContext } from './Hero'
 const CarCard = ({ carData }) => {
 
     const [showMore, setShowMore] = useState(false);
-    const jwtToken = useContext(TokenContext);
+    const jwtToken = localStorage.getItem("token");
     const carId = carData.id;
+
+
     const handleClick = async () => {
         try {
             const response = await fetch("http://localhost:5003/api/Garage", {
@@ -43,6 +45,12 @@ const CarCard = ({ carData }) => {
                 className="bg-orange-500 text-white px-4 py-2 rounded-md hover:bg-orange-600 transition-colors duration-300"
             >
                 {showMore ? 'Show Less' : 'Show More'}
+            </button>
+            <button
+            
+            > 
+            add to garage
+
             </button>
             {showMore && (
                 <>
