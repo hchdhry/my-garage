@@ -1,10 +1,11 @@
 import { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link,useNavigate } from 'react-router-dom';
 
 const GarageCard = ({ carData }) => {
     const [data, setData] = useState([]);
     const [showMore, setShowMore] = useState(false);
     const jwtToken = localStorage.getItem("token");
+    const navigate = useNavigate();
 
     const handleDelete = async () => {
         try {
@@ -21,6 +22,11 @@ const GarageCard = ({ carData }) => {
             console.log(error);
         }
     };
+    const handleChat = async ()=>
+        {
+        navigate(`/chat/${carData.model}`);
+
+        }
 
     return (
         <div className="bg-gray-800 rounded-lg shadow-lg p-6 mb-8">
@@ -38,6 +44,10 @@ const GarageCard = ({ carData }) => {
                     >
                         Delete
                     </button>
+                    <button
+                    onClick={handleChat}
+                    
+                    >live Chat</button>
                 </div>
             </div>
             <p className="text-gray-400 mb-4">Year: {carData.year}</p>

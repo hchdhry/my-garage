@@ -197,13 +197,18 @@ namespace API.Migrations
 
             modelBuilder.Entity("API.UserConnection", b =>
                 {
+                    b.Property<string>("ConnectionId")
+                        .HasColumnType("text");
+
                     b.Property<string>("Car")
+                        .IsRequired()
                         .HasColumnType("text");
 
                     b.Property<string>("userName")
+                        .IsRequired()
                         .HasColumnType("text");
 
-                    b.HasKey("Car", "userName");
+                    b.HasKey("ConnectionId");
 
                     b.ToTable("UserConnections");
                 });
@@ -236,13 +241,13 @@ namespace API.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "46eed3e0-9118-4662-b7e9-26027c46f4a1",
+                            Id = "22155efb-dccc-4e73-9597-539865ff9744",
                             Name = "Admin",
                             NormalizedName = "ADMIN"
                         },
                         new
                         {
-                            Id = "ea2c0550-3ced-4f14-8a51-1343a4a22c61",
+                            Id = "cef6d97b-6be7-4210-9e6b-242d28363f2a",
                             Name = "User",
                             NormalizedName = "USER"
                         });

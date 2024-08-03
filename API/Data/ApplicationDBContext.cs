@@ -32,9 +32,9 @@ namespace API.Data
                 .WithMany(p => p.Garage)
                 .HasForeignKey(p => p.CarId);
 
-        
+
             builder.Entity<UserConnection>()
-                .HasKey(uc => new { uc.Car, uc.userName });
+      .HasKey(u => u.ConnectionId);
 
             List<IdentityRole> roles = new List<IdentityRole>
             {

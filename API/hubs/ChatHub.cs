@@ -29,7 +29,7 @@ public class ChatHub : Hub
 
             if (existingConnection == null)
             {
-                
+                userConnection.ConnectionId = Context.ConnectionId;
                 await _db.UserConnections.AddAsync(userConnection);
                 await _db.SaveChangesAsync();
                 Console.WriteLine("User connection added to shared DB");
@@ -37,6 +37,8 @@ public class ChatHub : Hub
             else
             {
                 Console.WriteLine("User connection already exists in DB");
+                existingConnection.ConnectionId = Context.ConnectionId;
+                await _db.SaveChangesAsync();
             }
 
             await Groups.AddToGroupAsync(Context.ConnectionId, userConnection.Car);
@@ -62,14 +64,34 @@ public class ChatHub : Hub
 
     public async Task SendMessage(UserConnection userConnection, string message)
     {
-        if (await _db.UserConnections.AnyAsync(u => u.Car == userConnection.Car && u.userName == userConnection.userName))
+        try
         {
-            await Clients.Group(userConnection.Car).SendAsync("ReceivedMessage", userConnection.userName, message);
+            var existingConnection = await _db.UserConnections
+                .FirstOrDefaultAsync(u => u.Car == userConnection.Car && u.userName == userConnection.userName);
+
+            if (existingConnection != null)
+            {
+                if (existingConnection.ConnectionId != Context.ConnectionId)
+                {
+                    existingConnection.ConnectionId = Context.ConnectionId;
+                    await _db.SaveChangesAsync();
+                }
+
+                await Clients.Group(userConnection.Car).SendAsync("ReceivedMessage", userConnection.userName, message);
+                Console.WriteLine($"Message sent in group {userConnection.Car} by user {userConnection.userName}");
+            }
+            else
+            {
+                Console.WriteLine($"User {userConnection.userName} not found in chat room {userConnection.Car}. Attempting to rejoin.");
+                await JoinSpecificGroup(userConnection);
+                await Clients.Group(userConnection.Car).SendAsync("ReceivedMessage", userConnection.userName, message);
+            }
         }
-        else
+        catch (Exception ex)
         {
-            await Clients.Caller.SendAsync("ErrorMessage", "You are not in this chat room");
+            Console.Error.WriteLine($"Error in SendMessage: {ex.Message}");
+            Console.Error.WriteLine($"Stack trace: {ex.StackTrace}");
+            await Clients.Caller.SendAsync("ErrorMessage", "An error occurred while sending the message. Please try rejoining the chat.");
         }
     }
 }
-

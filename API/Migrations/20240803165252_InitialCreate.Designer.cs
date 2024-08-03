@@ -12,8 +12,8 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace API.Migrations
 {
     [DbContext(typeof(ApplicationDBContext))]
-    [Migration("20240504140122_createDB")]
-    partial class createDB
+    [Migration("20240803165252_InitialCreate")]
+    partial class InitialCreate
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -198,6 +198,24 @@ namespace API.Migrations
                     b.ToTable("AspNetUsers", (string)null);
                 });
 
+            modelBuilder.Entity("API.UserConnection", b =>
+                {
+                    b.Property<string>("ConnectionId")
+                        .HasColumnType("text");
+
+                    b.Property<string>("Car")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<string>("userName")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.HasKey("ConnectionId");
+
+                    b.ToTable("UserConnections");
+                });
+
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
                 {
                     b.Property<string>("Id")
@@ -226,13 +244,13 @@ namespace API.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "81a12120-d3e0-4a69-ae7c-b04912960cc1",
+                            Id = "22155efb-dccc-4e73-9597-539865ff9744",
                             Name = "Admin",
                             NormalizedName = "ADMIN"
                         },
                         new
                         {
-                            Id = "dcf921f1-12e0-4a51-a02b-1d3585469372",
+                            Id = "cef6d97b-6be7-4210-9e6b-242d28363f2a",
                             Name = "User",
                             NormalizedName = "USER"
                         });

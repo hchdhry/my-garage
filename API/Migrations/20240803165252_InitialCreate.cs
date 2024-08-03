@@ -9,7 +9,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace API.Migrations
 {
     /// <inheritdoc />
-    public partial class createDB : Migration
+    public partial class InitialCreate : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -77,6 +77,19 @@ namespace API.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Cars", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "UserConnections",
+                columns: table => new
+                {
+                    ConnectionId = table.Column<string>(type: "text", nullable: false),
+                    Car = table.Column<string>(type: "text", nullable: false),
+                    userName = table.Column<string>(type: "text", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_UserConnections", x => x.ConnectionId);
                 });
 
             migrationBuilder.CreateTable(
@@ -242,8 +255,8 @@ namespace API.Migrations
                 columns: new[] { "Id", "ConcurrencyStamp", "Name", "NormalizedName" },
                 values: new object[,]
                 {
-                    { "81a12120-d3e0-4a69-ae7c-b04912960cc1", null, "Admin", "ADMIN" },
-                    { "dcf921f1-12e0-4a51-a02b-1d3585469372", null, "User", "USER" }
+                    { "22155efb-dccc-4e73-9597-539865ff9744", null, "Admin", "ADMIN" },
+                    { "cef6d97b-6be7-4210-9e6b-242d28363f2a", null, "User", "USER" }
                 });
 
             migrationBuilder.CreateIndex(
@@ -322,6 +335,9 @@ namespace API.Migrations
 
             migrationBuilder.DropTable(
                 name: "Garage");
+
+            migrationBuilder.DropTable(
+                name: "UserConnections");
 
             migrationBuilder.DropTable(
                 name: "AspNetRoles");

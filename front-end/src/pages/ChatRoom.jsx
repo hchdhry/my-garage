@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from 'react';
+import { useParams } from 'react-router-dom';
 import { HubConnectionBuilder, LogLevel } from "@microsoft/signalr";
+import { jwtDecode } from "jwt-decode";
 
 const ChatRoomComment = ({ user, message }) => {
     return (
@@ -15,12 +17,26 @@ const ChatRoomComment = ({ user, message }) => {
 };
 
 const ChatRoom = () => {
+    const { carId } = useParams();
     const [connection, setConnection] = useState(null);
-    const [userName, setUserName] = useState('');
-    const [chatRoom, setChatRoom] = useState('');
+    const [userName, setUserName] = useState('Anonymous');
     const [message, setMessage] = useState('');
     const [messages, setMessages] = useState([]);
     const [error, setError] = useState('');
+
+    useEffect(() => {
+        const token = localStorage.getItem("token");
+        if (token) {
+            try {
+                const decodedToken = jwtDecode(token);
+                setUserName(decodedToken.given_name || 'Anonymous');
+            } catch (e) {
+                console.error("Error decoding token:", e);
+                setError("Error decoding user token. Using 'Anonymous' as username.");
+            }
+        }
+        joinChat();
+    }, [carId]);
 
     const joinChat = async () => {
         try {
@@ -40,7 +56,7 @@ const ChatRoom = () => {
             await newConnection.start();
             console.log("Connection started");
 
-            await newConnection.invoke("JoinSpecificGroup", { UserName: userName, ChatRoom: chatRoom });
+            await newConnection.invoke("JoinSpecificGroup", { UserName: userName, ChatRoom: carId });
             console.log("Joined specific group");
 
             setConnection(newConnection);
@@ -54,7 +70,7 @@ const ChatRoom = () => {
     const sendMessage = async () => {
         if (connection) {
             try {
-                await connection.invoke("SendMessage", { UserName: userName, ChatRoom: chatRoom }, message);
+                await connection.invoke("SendMessage", { UserName: userName, ChatRoom: carId }, message);
                 setMessage('');
             } catch (e) {
                 console.log(e);
@@ -67,23 +83,7 @@ const ChatRoom = () => {
 
     return (
         <div className="p-4">
-            <div className="mb-4">
-                <input
-                    type="text"
-                    placeholder="Your Name"
-                    value={userName}
-                    onChange={(e) => setUserName(e.target.value)}
-                    className="mr-2 p-2 border rounded"
-                />
-                <input
-                    type="text"
-                    placeholder="Chat Room"
-                    value={chatRoom}
-                    onChange={(e) => setChatRoom(e.target.value)}
-                    className="mr-2 p-2 border rounded"
-                />
-                <button onClick={joinChat} className="p-2 bg-blue-500 text-white rounded">Join Chat</button>
-            </div>
+            <h1 className="text-2xl font-bold mb-4">Chat Room for Car ID: {carId}</h1>
 
             {error && <div className="text-red-500 mb-4">{error}</div>}
 
