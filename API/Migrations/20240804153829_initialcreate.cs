@@ -9,7 +9,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace API.Migrations
 {
     /// <inheritdoc />
-    public partial class InitialCreate : Migration
+    public partial class initialcreate : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -83,13 +83,13 @@ namespace API.Migrations
                 name: "UserConnections",
                 columns: table => new
                 {
-                    ConnectionId = table.Column<string>(type: "text", nullable: false),
                     Car = table.Column<string>(type: "text", nullable: false),
-                    userName = table.Column<string>(type: "text", nullable: false)
+                    userName = table.Column<string>(type: "text", nullable: false),
+                    ConnectionId = table.Column<string>(type: "text", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_UserConnections", x => x.ConnectionId);
+                    table.PrimaryKey("PK_UserConnections", x => new { x.userName, x.Car });
                 });
 
             migrationBuilder.CreateTable(
@@ -255,8 +255,8 @@ namespace API.Migrations
                 columns: new[] { "Id", "ConcurrencyStamp", "Name", "NormalizedName" },
                 values: new object[,]
                 {
-                    { "22155efb-dccc-4e73-9597-539865ff9744", null, "Admin", "ADMIN" },
-                    { "cef6d97b-6be7-4210-9e6b-242d28363f2a", null, "User", "USER" }
+                    { "86f7e65e-d4c1-45f9-a9e2-be3ba2e36491", null, "Admin", "ADMIN" },
+                    { "9a22ce66-19b8-4a12-8cba-902aa3c9b18e", null, "User", "USER" }
                 });
 
             migrationBuilder.CreateIndex(

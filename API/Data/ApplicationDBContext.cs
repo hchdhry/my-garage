@@ -34,7 +34,7 @@ namespace API.Data
 
 
             builder.Entity<UserConnection>()
-      .HasKey(u => u.ConnectionId);
+          .HasKey(uc => new { uc.userName, uc.Car });
 
             List<IdentityRole> roles = new List<IdentityRole>
             {

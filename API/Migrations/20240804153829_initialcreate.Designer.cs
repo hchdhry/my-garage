@@ -12,8 +12,8 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace API.Migrations
 {
     [DbContext(typeof(ApplicationDBContext))]
-    [Migration("20240803165252_InitialCreate")]
-    partial class InitialCreate
+    [Migration("20240804153829_initialcreate")]
+    partial class initialcreate
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -200,18 +200,17 @@ namespace API.Migrations
 
             modelBuilder.Entity("API.UserConnection", b =>
                 {
-                    b.Property<string>("ConnectionId")
+                    b.Property<string>("userName")
                         .HasColumnType("text");
 
                     b.Property<string>("Car")
+                        .HasColumnType("text");
+
+                    b.Property<string>("ConnectionId")
                         .IsRequired()
                         .HasColumnType("text");
 
-                    b.Property<string>("userName")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.HasKey("ConnectionId");
+                    b.HasKey("userName", "Car");
 
                     b.ToTable("UserConnections");
                 });
@@ -244,13 +243,13 @@ namespace API.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "22155efb-dccc-4e73-9597-539865ff9744",
+                            Id = "86f7e65e-d4c1-45f9-a9e2-be3ba2e36491",
                             Name = "Admin",
                             NormalizedName = "ADMIN"
                         },
                         new
                         {
-                            Id = "cef6d97b-6be7-4210-9e6b-242d28363f2a",
+                            Id = "9a22ce66-19b8-4a12-8cba-902aa3c9b18e",
                             Name = "User",
                             NormalizedName = "USER"
                         });
