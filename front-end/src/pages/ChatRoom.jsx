@@ -17,7 +17,8 @@ const ChatRoomComment = ({ user, message }) => {
 };
 
 const ChatRoom = () => {
-    const { carId } = useParams();
+    const { make } = useParams();
+    console.log("CarID from useParams:", make);
     const [connection, setConnection] = useState(null);
     const [userName, setUserName] = useState('Anonymous');
     const [message, setMessage] = useState('');
@@ -36,7 +37,7 @@ const ChatRoom = () => {
             }
         }
         joinChat();
-    }, [carId]);
+    }, [make]);
 
     const joinChat = async () => {
         try {
@@ -56,7 +57,7 @@ const ChatRoom = () => {
             await newConnection.start();
             console.log("Connection started");
 
-            await newConnection.invoke("JoinSpecificGroup", { UserName: userName, ChatRoom: carId });
+            await newConnection.invoke("JoinSpecificGroup", { UserName: userName, ChatRoom: make });
             console.log("Joined specific group");
 
             setConnection(newConnection);
@@ -70,7 +71,7 @@ const ChatRoom = () => {
     const sendMessage = async () => {
         if (connection) {
             try {
-                await connection.invoke("SendMessage", { UserName: userName, ChatRoom: carId }, message);
+                await connection.invoke("SendMessage", { UserName: userName, ChatRoom: make }, message);
                 setMessage('');
             } catch (e) {
                 console.log(e);
@@ -83,7 +84,7 @@ const ChatRoom = () => {
 
     return (
         <div className="p-4">
-            <h1 className="text-2xl font-bold mb-4">Chat Room for Car ID: {carId}</h1>
+            <h1 className="text-2xl font-bold mb-4">Chat Room for: {make}</h1>
 
             {error && <div className="text-red-500 mb-4">{error}</div>}
 
