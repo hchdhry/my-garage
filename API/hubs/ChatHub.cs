@@ -25,7 +25,7 @@ public class ChatHub : Hub
             Console.WriteLine($"Attempting to join group for user: {userConnection.userName}, Car: {userConnection.Car}");
 
             var existingConnection = await _db.UserConnections
-                .FirstOrDefaultAsync(uc => uc.Car == userConnection.Car && uc.userName == userConnection.userName && uc.ConnectionId == userConnection.ConnectionId);
+                .FirstOrDefaultAsync(uc => uc.Car == userConnection.Car && uc.userName == userConnection.userName);
 
             if (existingConnection == null)
             {
