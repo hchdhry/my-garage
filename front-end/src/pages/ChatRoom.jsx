@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useCallback, useRef } from 'react';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { HubConnectionBuilder, LogLevel } from "@microsoft/signalr";
 import { jwtDecode } from "jwt-decode";
 import  ChatRoomComment  from "../components/ChatRoomComment";
@@ -10,7 +10,9 @@ const useChatConnection = (make, userName) => {
     const [connection, setConnection] = useState(null);
     const [error, setError] = useState('');
     const connectionRef = useRef(null);
+ 
 
+   
     const joinChat = useCallback(async () => {
         if (connectionRef.current) {
             console.log("Connection already exists. Skipping setup.");
@@ -54,6 +56,7 @@ const useChatConnection = (make, userName) => {
 };
 
 const ChatRoom = () => {
+    const navigate = useNavigate();
     const { make } = useParams();
     const [userName, setUserName] = useState('Anonymous');
     const [message, setMessage] = useState('');
@@ -90,6 +93,19 @@ const ChatRoom = () => {
             connection.off("ErrorMessage");
         };
     }, [connection]);
+    const leaveChat = async ()=>
+        {
+            try{
+                await connection.invoke("LeaveChat", {UserName: userName, ChatRoom: make})
+                navigate("/garage")
+               
+            }
+            catch(e)
+            {
+                console.log(e)
+            }
+
+        }
 
     const sendMessage = async () => {
         if (connection) {
@@ -110,6 +126,7 @@ const ChatRoom = () => {
             <h1 className="text-2xl font-bold mb-4">Chat Room for: {make}</h1>
 
             {(error || connectionError) && <div className="text-red-500 mb-4">{error || connectionError}</div>}
+            <button onClick={leaveChat} className="p-2 bg-green-500 text-white rounded">delete</button>
 
             <ul className="mb-4 h-64 overflow-y-auto bg-gray-800 p-4 rounded">
                 {messages.map((msg, index) => (

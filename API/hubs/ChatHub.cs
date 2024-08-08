@@ -22,6 +22,7 @@ public class ChatHub : Hub
         try
         {
             UserConnection existingConnections = await _db.UserConnections.FirstOrDefaultAsync(u=>u.Car == userConnection.Car&& u.userName == userConnection.userName);
+            await Clients.Group(userConnection.Car).SendAsync("ReceivedMessage", "admin", $"{userConnection.userName} has left the group");
             if(existingConnections != null)
             {
                 _db.Remove(existingConnections);
