@@ -17,6 +17,26 @@ public class ChatHub : Hub
     {
         await Clients.All.SendAsync("ReceivedMessage", $"{userConnection.Car} has joined", "Hi!");
     }
+    public async Task LeaveChat(UserConnection userConnection)
+    {
+        try
+        {
+            UserConnection existingConnections = await _db.UserConnections.FirstOrDefaultAsync(u=>u.Car == userConnection.Car&& u.userName == userConnection.userName);
+            if(existingConnections != null)
+            {
+                _db.Remove(existingConnections);
+                await _db.SaveChangesAsync();
+            }
+            Console.WriteLine("you are not in this group");
+          
+            
+        }
+        catch(Exception e)
+        {
+            Console.WriteLine(e);
+        }
+
+    }
 
     public async Task JoinSpecificGroup(UserConnection userConnection)
     {
