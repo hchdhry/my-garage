@@ -3,6 +3,7 @@ import Header from '../components/header';
 import { useNavigate } from 'react-router-dom';
 
 const LoginForm = () => {
+    const [error,setError] = useState(null);
     const navigate = useNavigate();
     const [formData, setFormData] = useState({
         username: '',
@@ -32,10 +33,10 @@ const LoginForm = () => {
                 localStorage.setItem('token', data.token);
                 navigate('/');
             } else {
-                console.log('error');
+                setError("error logging in")
             }
         } catch (error) {
-            console.error('Error:', error);
+            setError(`error logging in:${error}`)
         }
     };
 
@@ -80,6 +81,7 @@ const LoginForm = () => {
                         >
                             Login
                         </button>
+                            {error && <span className="error text-red-500">{error}</span>}
                     </form>
                 </div>
             </div>
