@@ -2,6 +2,7 @@ import { useState } from "react";
 import Header from "../components/header";
 
 const RegisterForm = () => {
+    const [error,setError] = useState(null)
     const [formData, setFormData] = useState({
         username: '',
         email: '',
@@ -22,9 +23,9 @@ const RegisterForm = () => {
                 },
                 body: JSON.stringify(formData),
             });
-            // Handle response as needed
+           
         } catch (error) {
-            console.log(error);
+            setError(`error registering: ${error}`)
         }
     };
 
@@ -48,6 +49,7 @@ const RegisterForm = () => {
                     <div className="flex items-center justify-between">
                         <button type="submit" className="bg-orange-500 hover:bg-orange-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">Submit</button>
                     </div>
+                    {error&& <span className="error text-red-500">{error}</span>}
                 </form>
             </div>
         </>
