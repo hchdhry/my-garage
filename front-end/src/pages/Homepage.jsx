@@ -5,7 +5,7 @@ import Hero from '../components/Hero';
 
 const HomePage = () => {
     return (
-        <div>
+        <div className="min-h-screen flex flex-col">
             <Header />
             <Hero />
             <Footer />

@@ -28,7 +28,7 @@ const Hero = () => {
                 <h1 className="text-3xl font-bold text-center mb-4">My garage</h1>
                 <p className="text-lg text-gray-400 text-center">the online car talk community</p>
             </section>
-            <section className="py-10">
+            <section className="py-10 min-h-screen flex justify-center items-center">
                 {randomCarsX3.length > 0 ? (
                     <TokenContext.Provider value={jwtToken}>
                         {randomCarsX3.map((car, index) => (

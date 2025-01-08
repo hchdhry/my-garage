@@ -1,4 +1,4 @@
-/* Modern Card with Soft Shadows and Nice Color Palette */
+
 
 .card-container {
     background-color: #fff;
@@ -29,7 +29,7 @@
     margin-bottom: 10px;
 }
 
-/* Color Palette */
+
 :root {
     --primary-color: #2c3e50;
     --secondary-color: #7f8c8d;

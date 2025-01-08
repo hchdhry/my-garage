@@ -7,6 +7,7 @@ import NotFound from './pages/NotFound';
 import Garage from './pages/Garage';
 import CommentsPage from './pages/CommentsPage';
 import ChatRoom from './pages/ChatRoom';
+import About from "./pages/About"
 
 function App() {
   const router = createBrowserRouter([
@@ -16,6 +17,11 @@ function App() {
     },
     {path:"/chat/:make",
       element:<ChatRoom/>
+    },
+    {
+      path:"/About",
+      element:<About/>
+
     },
     {
       path: '/login',

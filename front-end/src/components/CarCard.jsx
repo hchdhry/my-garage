@@ -49,7 +49,7 @@ const CarCard = ({ carData }) => {
             <button
             
             > 
-            add to garage
+          
 
             </button>
             {showMore && (

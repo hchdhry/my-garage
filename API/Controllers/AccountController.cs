@@ -41,7 +41,13 @@ public async Task<IActionResult> Register(RegisterDto registerDto)
             if(createdUser.Succeeded) {
                     var role = await _userManager.AddToRoleAsync(appUser, "User");
                     if(role.Succeeded){
-                    return Ok("user created");}
+                       
+                    return Ok(new NewUserDto
+                    {
+                        UserName = appUser.UserName,
+                        Email = appUser.Email,
+                        token = _TokenService.CreateToken(appUser)
+                    });}
                     else { return BadRequest();}
             }
           

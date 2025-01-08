@@ -1,8 +1,10 @@
 import { useState } from "react";
 import Header from "../components/header";
+import { useNavigate } from 'react-router-dom';
 
 const RegisterForm = () => {
     const [error,setError] = useState(null)
+    const navigate = useNavigate();
     const [formData, setFormData] = useState({
         username: '',
         email: '',
@@ -23,6 +25,13 @@ const RegisterForm = () => {
                 },
                 body: JSON.stringify(formData),
             });
+            const data = await response.json()
+            if (data && data.token) {
+                localStorage.setItem('token', data.token);
+                navigate('/');
+            } else {
+                setError("error registering")
+            }
            
         } catch (error) {
             setError(`error registering: ${error}`)
