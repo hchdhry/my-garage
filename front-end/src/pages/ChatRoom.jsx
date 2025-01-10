@@ -126,7 +126,7 @@ const ChatRoom = () => {
             <h1 className="text-2xl font-bold mb-4">Chat Room for: {make}</h1>
 
             {(error || connectionError) && <div className="text-red-500 mb-4">{error || connectionError}</div>}
-            <button onClick={leaveChat} className="p-2 bg-green-500 text-white rounded">delete</button>
+            <button onClick={leaveChat} className="p-2 bg-green-500 text-white rounded">Leave</button>
 
             <ul className="mb-4 h-64 overflow-y-auto bg-gray-800 p-4 rounded">
                 {messages.map((msg, index) => (
