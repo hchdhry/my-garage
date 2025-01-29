@@ -13,7 +13,7 @@ public class Comment
     public int CarId { get; set; }
     public Car Car { get; set; }
     public User User { get; set; }
-        public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
+    public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
 
 
     }
