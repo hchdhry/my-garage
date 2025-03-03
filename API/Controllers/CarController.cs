@@ -24,7 +24,7 @@ namespace API.Controllers
         {
             var car = await _carRepo.CreateCar(model);
             if (car == null)
-                {return BadRequest("something went wrong");}
+            {return BadRequest("something went wrong");}
 
             return Ok(car);
         }
